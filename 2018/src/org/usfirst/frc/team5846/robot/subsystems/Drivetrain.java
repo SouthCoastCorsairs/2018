@@ -25,7 +25,7 @@ public class Drivetrain extends Subsystem {
 	public Encoder RightEncoder = new Encoder(RobotMap.DriveEncoderRightA, RobotMap.DriveEncoderRightB);
 	
 	public final AHRS ahrs = new AHRS(SPI.Port.kMXP);
-
+	//Gyro
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
