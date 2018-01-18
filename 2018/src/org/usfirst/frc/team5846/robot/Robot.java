@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team5846.robot;
 
+import org.usfirst.frc.team5846.robot.commands.Auto;
 import org.usfirst.frc.team5846.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team5846.robot.subsystems.Pneumatics;
 
@@ -41,6 +42,8 @@ public class Robot extends IterativeRobot {
 		//chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
+		
+		chooser.addDefault("Auto", new Auto());
 	}
 
 	/**
@@ -120,6 +123,16 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		SmartDashboard.putNumber("Angle", Robot.drivetrain.getAngle());
+		SmartDashboard.putNumber("Left Distance", Robot.drivetrain.getLeftDistance());
+		SmartDashboard.putNumber("Right Distance", Robot.drivetrain.getRightDistance());
+		SmartDashboard.putBoolean("Compressor Status", Robot.pt.enabled);
+		SmartDashboard.putBoolean("Pressure Switch Status", Robot.pt.pressureSwitch);
+		SmartDashboard.putNumber("Compressor Current", Robot.pt.current);
+		//SmartDashboard.putNumber("Right Encoder (rotation)", Robot.drivetrain.getRightDistance()/360);
+		//SmartDashboard.putNumber("Right Encoder (cm)", (Robot.drivetrain.getRightDistance()*31.4)/360);
+		SmartDashboard.putNumber("Right Encoder (cm)", Robot.drivetrain.RightCM());
+		SmartDashboard.putNumber("Left Encoder (cm)", Robot.drivetrain.LeftCM());
 		Scheduler.getInstance().run();
 	}
 
@@ -140,13 +153,17 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		//Printing stuff to SmartDashboard during teleop
-		SmartDashboard.putNumber("Pulse per Rotation", Robot.drivetrain.pulseperrotation);
 		SmartDashboard.putNumber("Angle", Robot.drivetrain.getAngle());
 		SmartDashboard.putNumber("Left Distance", Robot.drivetrain.getLeftDistance());
 		SmartDashboard.putNumber("Right Distance", Robot.drivetrain.getRightDistance());
 		SmartDashboard.putBoolean("Compressor Status", Robot.pt.enabled);
 		SmartDashboard.putBoolean("Pressure Switch Status", Robot.pt.pressureSwitch);
 		SmartDashboard.putNumber("Compressor Current", Robot.pt.current);
+		//SmartDashboard.putNumber("Right Encoder (rotation)", Robot.drivetrain.getRightDistance()/360);
+		//SmartDashboard.putNumber("Right Encoder (cm)", (Robot.drivetrain.getRightDistance()*31.4)/360);
+		SmartDashboard.putNumber("Right Encoder (cm)", Robot.drivetrain.RightCM());
+		SmartDashboard.putNumber("Left Encoder (cm)", Robot.drivetrain.LeftCM());
+		
 		
 		Scheduler.getInstance().run();
 	}

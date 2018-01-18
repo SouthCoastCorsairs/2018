@@ -1,5 +1,6 @@
 package org.usfirst.frc.team5846.robot.subsystems;
 
+import org.usfirst.frc.team5846.robot.Robot;
 import org.usfirst.frc.team5846.robot.RobotMap;
 import org.usfirst.frc.team5846.robot.commands.Drive;
 
@@ -15,8 +16,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class Drivetrain extends Subsystem {
-	double Distance = 31.4;
-	public double pulseperrotation=0;
+	public double RightDistance1;
+	public double LeftDistance1;
+	
+	
 	private Victor frontLeft = new Victor(RobotMap.frontLeft);
 	private Victor frontRight = new Victor(RobotMap.frontRight);
 	private Victor backLeft = new Victor(RobotMap.backLeft);
@@ -46,11 +49,6 @@ public class Drivetrain extends Subsystem {
     		return ahrs.getAngle();
     }
     
-    public void initEncoder() {
-    		RightEncoder.setDistancePerPulse(6*Math.PI / 360); 
-    		LeftEncoder.setDistancePerPulse(6*Math.PI / 360);
-    }
-    
     
     public double getRightDistance() {
     		return RightEncoder.getDistance();
@@ -59,18 +57,40 @@ public class Drivetrain extends Subsystem {
     public double getLeftDistance() {
     		return LeftEncoder.getDistance();
     }
-    public double printEncoder() {
-    	
-    if (getLeftDistance() == Distance) {
-    		pulseperrotation = LeftEncoder.getDistancePerPulse();
-    }
-    return pulseperrotation;
     
+    public void initEncoder() {
+		RightEncoder.setDistancePerPulse((getRightDistance()) / 360); 
+		LeftEncoder.setDistancePerPulse((getLeftDistance()) / 360);    
     }
     
+   // public double RightCM = (getRightDistance()*31.4)/360;
+  //  public double LeftCM = (getLeftDistance()*31.4)/360;
+    
+    public double RightCM() {
+    	return RightDistance1 = (getRightDistance()*31.4)/360;
+    }
+    
+    public double LeftCM() {
+    	return LeftDistance1 = (getLeftDistance()*31.4)/360;
+    }
+   
     public void ResetEncoders() {
     		LeftEncoder.reset();
     		RightEncoder.reset();
+    }
+    
+    public boolean isAtDistance(double distance) {
+    	if(RightCM() > distance && LeftCM() > distance) {
+    		stopTank();
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
+    }
+    
+    public void ResetGyro() {
+    	ahrs.reset();
     }
    
     
@@ -79,6 +99,10 @@ public class Drivetrain extends Subsystem {
     		backLeft.set(left);
     		frontRight.set(right);
     		backRight.set(right);
+    }
+    
+    public void stopTank() {
+    	this.tank(0, 0);
     }
 }
 
