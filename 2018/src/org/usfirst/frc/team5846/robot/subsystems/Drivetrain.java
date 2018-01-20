@@ -8,6 +8,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,10 +21,10 @@ public class Drivetrain extends Subsystem {
 	public double LeftDistance1;
 	
 	
-	private Victor frontLeft = new Victor(RobotMap.frontLeft);
-	private Victor frontRight = new Victor(RobotMap.frontRight);
-	private Victor backLeft = new Victor(RobotMap.backLeft);
-	private Victor backRight = new Victor(RobotMap.backRight);
+	private Talon frontLeft = new Talon(RobotMap.frontLeft);
+	private Talon frontRight = new Talon(RobotMap.frontRight);
+	private Talon backLeft = new Talon(RobotMap.backLeft);
+	private Talon backRight = new Talon(RobotMap.backRight);
 	public Encoder LeftEncoder = new Encoder(RobotMap.DriveEncoderLeftA, RobotMap.DriveEncoderLeftB);
 	public Encoder RightEncoder = new Encoder(RobotMap.DriveEncoderRightA, RobotMap.DriveEncoderRightB);
 	
@@ -81,6 +82,16 @@ public class Drivetrain extends Subsystem {
     
     public boolean isAtDistance(double distance) {
     	if(RightCM() > distance && LeftCM() > distance) {
+    		stopTank();
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
+    }
+    
+    public boolean isAtAngle(double angle) {
+    	if(getAngle() > Math.abs(angle)) {
     		stopTank();
     		return true;
     	}

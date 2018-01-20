@@ -8,7 +8,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class Auto extends CommandGroup {
 
     public Auto() {
-    	addSequential(new DriveStraight(50));
+    	addSequential(new DriveStraight(100));
+    	//addSequential(new TurnAngle(30));
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

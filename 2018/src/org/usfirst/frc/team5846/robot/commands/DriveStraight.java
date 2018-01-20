@@ -13,6 +13,8 @@ public class DriveStraight extends Command {
 	private double RightSpeed;
 	private double CurrentHeading;
 	private double HeadingError;
+	private double iDistance;
+	
 
     public DriveStraight(double distance) {
     	requires(Robot.drivetrain);
@@ -24,9 +26,10 @@ public class DriveStraight extends Command {
     	Robot.drivetrain.ResetEncoders();
     	Robot.drivetrain.ResetGyro();
     	
-    	LeftSpeed = .2;
-    	RightSpeed = .2;
+    	LeftSpeed = .18;
+    	RightSpeed = .18;
     	
+    	iDistance = .8 * distance;
     	CurrentHeading = Robot.drivetrain.getAngle();
     }
 
@@ -36,16 +39,34 @@ public class DriveStraight extends Command {
     	
     	Robot.drivetrain.tank(LeftSpeed, -RightSpeed);
     	
-    	if (HeadingError > 1) {
-    		LeftSpeed = 0.3; 
+    	if ((Robot.drivetrain.LeftCM() < iDistance) && (Robot.drivetrain.RightCM() < iDistance)) {
+    	
+    	
+    		if (HeadingError > .4) {
+    			LeftSpeed = 0.3; 
+    		}
+    		else if (HeadingError < -.4) {
+    			RightSpeed = 0.3; 
+    		}
+    		else {
+    			LeftSpeed = RightSpeed = 0.18; 
+    		}
     	}
-    	else if (HeadingError < -1) {
-    		RightSpeed = 0.3; 
+    	else if ((Robot.drivetrain.LeftCM() > iDistance) && (Robot.drivetrain.RightCM() > iDistance)) {
+    		
+    		
+    		if (HeadingError > .4) {
+        		LeftSpeed = 0.3; 
+        	}
+        	else if (HeadingError < -.4) {
+        		RightSpeed = 0.3; 
+        	}
+        	else {
+        		LeftSpeed = RightSpeed = .09;
+        	}
     	}
-    	else {
-    		LeftSpeed = RightSpeed = 0.2; 
-    	}
-    }
+    	
+   }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
