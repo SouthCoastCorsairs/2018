@@ -28,8 +28,7 @@ public class Drivetrain extends Subsystem {
 	public Encoder LeftEncoder = new Encoder(RobotMap.DriveEncoderLeftA, RobotMap.DriveEncoderLeftB);
 	public Encoder RightEncoder = new Encoder(RobotMap.DriveEncoderRightA, RobotMap.DriveEncoderRightB);
 	
-	public final AHRS ahrs = new AHRS(SPI.Port.kMXP);
-	//Gyro
+	public final AHRS ahrs = new AHRS(SPI.Port.kMXP); //Gyro
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
@@ -39,40 +38,52 @@ public class Drivetrain extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
-    public void drive(double turn, double foward) {
-    		frontLeft.set(-foward + turn);
-    		frontRight.set(foward + turn);
-    		backLeft.set(-foward + turn);
-   		backRight.set(foward + turn);
+    
+    //Drive Method
+    public void drive(double turn, double forward) {
+    	frontLeft.set(-forward + turn);
+    	frontRight.set(forward + turn);
+    	backLeft.set(-forward + turn);
+   		backRight.set(forward + turn);
     }
     
+    
+    //Get Angle Method
     public double getAngle() {
-    		return ahrs.getAngle();
+    	return ahrs.getAngle();
     }
     
     
+    //Get Distance from Right Encoder in Pulses
     public double getRightDistance() {
-    		return RightEncoder.getDistance();
+    	return RightEncoder.getDistance();
     }
     
+    
+    //Get Distance from Left Encoder in Pulses
     public double getLeftDistance() {
-    		return LeftEncoder.getDistance();
+    	return LeftEncoder.getDistance();
     }
     
-    public void initEncoder() {
-		RightEncoder.setDistancePerPulse((getRightDistance()) / 360); 
-		LeftEncoder.setDistancePerPulse((getLeftDistance()) / 360);    
-    }
+    
+//    public void initEncoder() {
+//		RightEncoder.setDistancePerPulse((getRightDistance()) / 360); 
+//		LeftEncoder.setDistancePerPulse((getLeftDistance()) / 360);    
+//    }
     
    // public double RightCM = (getRightDistance()*31.4)/360;
   //  public double LeftCM = (getLeftDistance()*31.4)/360;
     
+    
+    //Get Distance from Right Encoder in cm
     public double RightCM() {
-    	return RightDistance1 = (getRightDistance()*31.4)/360;
+    	return RightDistance1 = (getRightDistance()*31.4)/360; //Conversion from pulses to cm 
     }
     
+    
+    //Get Distance from Left Encoder in cm
     public double LeftCM() {
-    	return LeftDistance1 = (getLeftDistance()*31.4)/360;
+    	return LeftDistance1 = (getLeftDistance()*31.4)/360; //Conversion from pulses to cm
     }
    
     public void ResetEncoders() {
@@ -80,6 +91,9 @@ public class Drivetrain extends Subsystem {
     		RightEncoder.reset();
     }
     
+    
+    //For Auto
+    //Checks When the Robot is at a Given Distance
     public boolean isAtDistance(double distance) {
     	if(RightCM() > distance && LeftCM() > distance) {
     		stopTank();
@@ -90,6 +104,9 @@ public class Drivetrain extends Subsystem {
     	}
     }
     
+    
+    //For Auto
+    //Checks When the Robot is at a Given Angle
     public boolean isAtAngle(double angle) {
     	if(getAngle() > Math.abs(angle)) {
     		stopTank();
@@ -100,11 +117,15 @@ public class Drivetrain extends Subsystem {
     	}
     }
     
+    
+    //Reset Gyro Method
     public void ResetGyro() {
     	ahrs.reset();
     }
    
     
+    //For Auto
+    //Tank Drive System
     public void tank(double left, double right) {
     		frontLeft.set(left);
     		backLeft.set(left);
@@ -112,6 +133,9 @@ public class Drivetrain extends Subsystem {
     		backRight.set(right);
     }
     
+    
+    //For Auto
+    //Stop Tank Method
     public void stopTank() {
     	this.tank(0, 0);
     }

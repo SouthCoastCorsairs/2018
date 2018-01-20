@@ -25,6 +25,8 @@ public class Drive extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
+    	//Speed Multipliers
+    	//Changes When Corresponding Button is Pressed
     	if (Robot.oi.getA()) {
     		speed = 1;
     		turn = .80;
@@ -45,6 +47,9 @@ public class Drive extends Command {
     		turn = .10;
     	}
     	
+    	
+    	//Calls Drive Method from Drivetrain
+    	//Turnspeed, Fowardspeed
     	Robot.drivetrain.drive((Robot.oi.getXaxis())*turn, (Robot.oi.getYaxis())*speed);
     	
     }

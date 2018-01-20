@@ -2,8 +2,9 @@ package org.usfirst.frc.team5846.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-/**
- *
+/**	Sequential Command Group
+ *	This is Used for Chaining Auto Commands 
+ *	Can Run Sequential or Parallel Commands
  */
 public class Auto extends CommandGroup {
 

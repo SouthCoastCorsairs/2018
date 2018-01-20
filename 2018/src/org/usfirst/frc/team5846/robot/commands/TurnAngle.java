@@ -25,17 +25,22 @@ public class TurnAngle extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	
+    	//Right is Positive, Left is Negative
+    	//Turn to Corresponding Angle
     	if (angle > 0) {
-    		Robot.drivetrain.tank(.15, .15); //foward left backward right
+    		Robot.drivetrain.tank(.15, .15); //Forward Left Backward Right 
     	}
+    	
     	if (angle < 0) {
-    		Robot.drivetrain.tank(-.15, -.15);
+    		Robot.drivetrain.tank(-.15, -.15); //Backward Left Forward Right
     	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-       return Robot.drivetrain.isAtAngle(angle);
+       //Finished When it Reaches the Given Angle
+    	return Robot.drivetrain.isAtAngle(angle);
     }
 
     // Called once after isFinished returns true

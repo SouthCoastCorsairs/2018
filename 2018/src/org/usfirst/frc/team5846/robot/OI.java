@@ -13,39 +13,57 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 	//Joysticks, buttons, triggers, axis, etc.
 	
+	
+	//Defining Joystick in Port 0
 	Joystick driver = new Joystick(0);
 	
 	
+	//Get the Axis of the Joystick
+	//X Axis is 0
+	//Y Axis is 1
 	public double getXaxis() {
 		return driver.getRawAxis(0);
 	}
+	
 	public double getYaxis() {
 		return driver.getRawAxis(1);
 	}	
+	
+	
+	//Get When the Buttons are Pressed
+	//Numbers for Buttons are Given in DS
 	public boolean getA() {
 		return driver.getRawButton(1);
 	}
+	
 	public boolean getB() {
 		return driver.getRawButton(2);
 	}
+	
 	public boolean getX() {
 		return driver.getRawButton(3);
 	}
+	
 	public boolean getY() {
 		return driver.getRawButton(4);
 	}
+	
 	public boolean getLB() {
 		return driver.getRawButton(5);
 	}
+	
 	public boolean getRB() {
 		return driver.getRawButton(6);
 	}
+	
 	public boolean getLstick() {
 		return driver.getRawButton(9);
 	}
+	
 	public boolean getRstick() {
 		return driver.getRawButton(10);
 	}
+	
 	public boolean getStart() {
 		return driver.getRawButton(8);
 	}

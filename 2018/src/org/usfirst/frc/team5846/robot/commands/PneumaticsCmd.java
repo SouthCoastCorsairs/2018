@@ -24,14 +24,20 @@ public class PneumaticsCmd extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	
+    	//Retract When LB is Pressed
     	if (Robot.oi.getLB()) {
     		Robot.pt.ds.set(DoubleSolenoid.Value.kReverse);
     	}
     	
+    	
+    	//Extend When RB is Pressed
     	if (Robot.oi.getRB()) {
     		Robot.pt.ds.set(DoubleSolenoid.Value.kForward);
     	}
     	
+    	
+    	//Off When Start is Pressed
     	if (Robot.oi.getStart()) {
     		Robot.pt.ds.set(DoubleSolenoid.Value.kOff);
     	}
