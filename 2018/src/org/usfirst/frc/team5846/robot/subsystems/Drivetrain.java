@@ -4,6 +4,7 @@ import org.usfirst.frc.team5846.robot.Robot;
 import org.usfirst.frc.team5846.robot.RobotMap;
 import org.usfirst.frc.team5846.robot.commands.Drive;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Encoder;
@@ -20,11 +21,10 @@ public class Drivetrain extends Subsystem {
 	public double RightDistance1;
 	public double LeftDistance1;
 	
-	
-	private Talon frontLeft = new Talon(RobotMap.frontLeft);
-	private Talon frontRight = new Talon(RobotMap.frontRight);
-	private Talon backLeft = new Talon(RobotMap.backLeft);
-	private Talon backRight = new Talon(RobotMap.backRight);
+	private TalonSRX frontLeft = new TalonSRX(RobotMap.frontLeft);
+	private TalonSRX frontRight = new TalonSRX(RobotMap.frontRight);
+	private TalonSRX backLeft = new TalonSRX(RobotMap.backLeft);
+	private TalonSRX backRight = new TalonSRX(RobotMap.backRight);
 	public Encoder LeftEncoder = new Encoder(RobotMap.DriveEncoderLeftA, RobotMap.DriveEncoderLeftB);
 	public Encoder RightEncoder = new Encoder(RobotMap.DriveEncoderRightA, RobotMap.DriveEncoderRightB);
 	

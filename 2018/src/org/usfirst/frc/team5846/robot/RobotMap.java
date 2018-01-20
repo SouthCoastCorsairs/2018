@@ -9,7 +9,7 @@ package org.usfirst.frc.team5846.robot;
 public class RobotMap {
 	//Motor controllers, solenoids, ultrasonics, etc.
 	
-	//Motor Controllers in PWM Ports
+	//Motor Controllers
 	public static int frontLeft = 0;
 	public static int frontRight = 2;
 	public static int backLeft = 1;
