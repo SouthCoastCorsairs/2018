@@ -24,8 +24,8 @@ public class Pneumatics extends Subsystem {
     } 
     
     public void setClosedLoopControl() {
-    	//Automatically Starts the Compressor When the Robot is Enabled
-    	c.setClosedLoopControl(true); //automatically turns on compressor to about 120PSI if pressure switch is closed
+    	//Automatically Enables Compressor When the Robot is Enabled
+    	c.setClosedLoopControl(true);
     }
     
     
