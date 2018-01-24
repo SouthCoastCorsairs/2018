@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class BoxCmd extends Command {
+	//Scale of the Lift Speed
 	private double scale = .2;
 
     public BoxCmd() {
@@ -22,6 +23,8 @@ public class BoxCmd extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	
+    	//Press Triggers, Set Intake Motors (Based on Trigger Axis) 
     	if (Robot.oi.getLT() < -.25) {
     		Robot.box.intake.set(-.75);
     	}
@@ -34,6 +37,7 @@ public class BoxCmd extends Command {
     		Robot.box.intake.set(0);
     	}
     	
+    	//Lift Method
     	Robot.box.lift((Robot.oi.getRY()*scale));
     	
     }

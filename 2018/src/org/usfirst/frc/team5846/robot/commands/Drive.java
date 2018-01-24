@@ -50,7 +50,11 @@ public class Drive extends Command {
     	
     	//Calls Drive Method from Drivetrain
     	//Turnspeed, Fowardspeed
+    	
+    	//Alternate Drive Method
     	//Robot.drivetrain.Ddrive.arcadeDrive((Robot.oi.getYaxis()*speed), (Robot.oi.getYaxis()*turn));
+    	
+    	//Primary Drive Method
     	Robot.drivetrain.drive((Robot.oi.getXaxis()*turn), (Robot.oi.getYaxis()*speed));
     }
 

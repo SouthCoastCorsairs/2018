@@ -14,11 +14,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class BoxHolder extends Subsystem {
+	//Lift Motor
 	Victor lift = new Victor(RobotMap.liftMotor);
+	
+	//Two Intake Motors
 	Victor intakeLeft = new Victor(RobotMap.intakeLeft);
 	Victor intakeRight = new Victor(RobotMap.intakeRight);
 	
-	
+	//Both Intake Motors Combined
 	public SpeedControllerGroup intake = new SpeedControllerGroup(intakeLeft, intakeRight);
 
     // Put methods for controlling this subsystem

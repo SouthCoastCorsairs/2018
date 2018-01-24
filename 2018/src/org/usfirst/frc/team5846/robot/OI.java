@@ -71,6 +71,7 @@ public class OI {
 		return driver.getRawButton(8);
 	}
 	
+	//Triggers, Which Return as an Axis
 	public double getLT() {
 		return driver.getRawAxis(2);
 	}
@@ -78,6 +79,7 @@ public class OI {
 	public double getRT() {
 		return driver.getRawAxis(3);
 	}
+	
 	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
 	//// joystick.

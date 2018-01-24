@@ -24,14 +24,19 @@ public class Drivetrain extends Subsystem {
 	public double RightDistance1;
 	public double LeftDistance1;
 	
+	//Talon SRX CAN Motor Controllers
 	private WPI_TalonSRX frontLeft = new WPI_TalonSRX(RobotMap.frontLeft);
 	private WPI_TalonSRX frontRight = new WPI_TalonSRX(RobotMap.frontRight);
 	private WPI_TalonSRX backLeft = new WPI_TalonSRX(RobotMap.backLeft);
 	private WPI_TalonSRX backRight = new WPI_TalonSRX(RobotMap.backRight);
+	
+	
+	//Encoders Set Here
 	public Encoder LeftEncoder = new Encoder(RobotMap.DriveEncoderLeftA, RobotMap.DriveEncoderLeftB);
 	public Encoder RightEncoder = new Encoder(RobotMap.DriveEncoderRightA, RobotMap.DriveEncoderRightB);
 	
-	public final AHRS ahrs = new AHRS(SPI.Port.kMXP); //Gyro
+	//Gyro
+	public final AHRS ahrs = new AHRS(SPI.Port.kMXP);
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
@@ -41,19 +46,21 @@ public class Drivetrain extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
+    //All Left Side Drivetrain Motors 
     SpeedControllerGroup Left = new SpeedControllerGroup(frontLeft, backLeft);
     
+    //All Right Side Drivetrain Motors
     SpeedControllerGroup Right = new SpeedControllerGroup(frontRight, backRight);
     
+    //Alternate Drive Method
     public DifferentialDrive Ddrive = new DifferentialDrive(Left, Right);
     
-    //Drive Method
+    //Primary Drive Method
     public void drive(double turn, double forward) {
+    	//Set with Parameters of Turn and Forward, Which are Set in Drive Command
     	Left.set(-forward + turn);
     	Right.set(forward + turn);
     }
-    
-    
     
     
     //Get Angle Method
