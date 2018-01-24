@@ -1,6 +1,5 @@
 package org.usfirst.frc.team5846.robot.commands;
 
-import org.usfirst.frc.team5846.robot.OI;
 import org.usfirst.frc.team5846.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -8,12 +7,11 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class Drive extends Command {
-	private double speed = 1;
-	private double turn = .80;
+public class BoxCmd extends Command {
+	private double scale = .2;
 
-    public Drive() {
-    	requires(Robot.drivetrain);
+    public BoxCmd() {
+    	requires(Robot.box);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -24,34 +22,20 @@ public class Drive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
-    	//Speed Multipliers
-    	//Changes When Corresponding Button is Pressed
-    	if (Robot.oi.getA()) {
-    		speed = 1;
-    		turn = .80;
+    	if (Robot.oi.getLT() < -.25) {
+    		Robot.box.intake.set(-.75);
     	}
     	
-    	if (Robot.oi.getB()) {
-    		speed = .75;
-    		turn = .70;
+    	else if (Robot.oi.getRT() < -.25) {
+    		Robot.box.intake.set(.50);
     	}
     	
-    	if (Robot.oi.getY()) {
-    		speed = .5;
-    		turn = .45;
+    	else {
+    		Robot.box.intake.set(0);
     	}
     	
-    	if (Robot.oi.getX()) {
-    		speed = .25;
-    		turn = .20;
-    	}
+    	Robot.box.lift((Robot.oi.getRY()*scale));
     	
-    	
-    	//Calls Drive Method from Drivetrain
-    	//Turnspeed, Fowardspeed
-    	//Robot.drivetrain.Ddrive.arcadeDrive((Robot.oi.getYaxis()*speed), (Robot.oi.getYaxis()*turn));
-    	Robot.drivetrain.drive((Robot.oi.getXaxis()*turn), (Robot.oi.getYaxis()*speed));
     }
 
     // Make this return true when this Command no longer needs to run execute()

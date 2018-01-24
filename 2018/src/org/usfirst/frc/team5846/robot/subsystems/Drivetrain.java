@@ -9,10 +9,13 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.ctre.phoenix.motorcontrol.can.*;
 
 /**
  *
@@ -21,10 +24,10 @@ public class Drivetrain extends Subsystem {
 	public double RightDistance1;
 	public double LeftDistance1;
 	
-	private TalonSRX frontLeft = new TalonSRX(RobotMap.frontLeft);
-	private TalonSRX frontRight = new TalonSRX(RobotMap.frontRight);
-	private TalonSRX backLeft = new TalonSRX(RobotMap.backLeft);
-	private TalonSRX backRight = new TalonSRX(RobotMap.backRight);
+	private WPI_TalonSRX frontLeft = new WPI_TalonSRX(RobotMap.frontLeft);
+	private WPI_TalonSRX frontRight = new WPI_TalonSRX(RobotMap.frontRight);
+	private WPI_TalonSRX backLeft = new WPI_TalonSRX(RobotMap.backLeft);
+	private WPI_TalonSRX backRight = new WPI_TalonSRX(RobotMap.backRight);
 	public Encoder LeftEncoder = new Encoder(RobotMap.DriveEncoderLeftA, RobotMap.DriveEncoderLeftB);
 	public Encoder RightEncoder = new Encoder(RobotMap.DriveEncoderRightA, RobotMap.DriveEncoderRightB);
 	
@@ -38,14 +41,19 @@ public class Drivetrain extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
+    SpeedControllerGroup Left = new SpeedControllerGroup(frontLeft, backLeft);
+    
+    SpeedControllerGroup Right = new SpeedControllerGroup(frontRight, backRight);
+    
+    public DifferentialDrive Ddrive = new DifferentialDrive(Left, Right);
     
     //Drive Method
     public void drive(double turn, double forward) {
-    	frontLeft.set(-forward + turn);
-    	frontRight.set(forward + turn);
-    	backLeft.set(-forward + turn);
-   		backRight.set(forward + turn);
+    	Left.set(-forward + turn);
+    	Right.set(forward + turn);
     }
+    
+    
     
     
     //Get Angle Method
@@ -127,10 +135,8 @@ public class Drivetrain extends Subsystem {
     //For Auto
     //Tank Drive System
     public void tank(double left, double right) {
-    		frontLeft.set(left);
-    		backLeft.set(left);
-    		frontRight.set(right);
-    		backRight.set(right);
+    	Left.set(left);
+    	Right.set(right);
     }
     
     

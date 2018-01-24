@@ -9,7 +9,7 @@ package org.usfirst.frc.team5846.robot;
 public class RobotMap {
 	//Motor controllers, solenoids, ultrasonics, etc.
 	
-	//Motor Controllers
+	//Motor Controllers CAN id's
 	public static int frontLeft = 0;
 	public static int frontRight = 2;
 	public static int backLeft = 1;
@@ -20,6 +20,11 @@ public class RobotMap {
 	public static int DriveEncoderLeftB = 4;
 	public static int DriveEncoderRightA = 2;
 	public static int DriveEncoderRightB = 1;
+	
+	//Other Motor Controllers
+	public static int liftMotor = 4;
+	public static int intakeLeft = 5;
+	public static int intakeRight = 6;
 	
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.

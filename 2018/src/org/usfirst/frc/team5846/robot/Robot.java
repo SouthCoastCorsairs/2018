@@ -2,6 +2,7 @@
 package org.usfirst.frc.team5846.robot;
 
 import org.usfirst.frc.team5846.robot.commands.Auto;
+import org.usfirst.frc.team5846.robot.subsystems.BoxHolder;
 import org.usfirst.frc.team5846.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team5846.robot.subsystems.Pneumatics;
 
@@ -28,6 +29,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static final Drivetrain drivetrain = new Drivetrain();
 	public static final Pneumatics pt = new Pneumatics();
+	public static final BoxHolder box = new BoxHolder();
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();

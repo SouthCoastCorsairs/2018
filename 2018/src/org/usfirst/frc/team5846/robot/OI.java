@@ -29,6 +29,9 @@ public class OI {
 		return driver.getRawAxis(1);
 	}	
 	
+	public double getRY() {
+		return driver.getRawAxis(5);
+	}
 	
 	//Get When the Buttons are Pressed
 	//Numbers for Buttons are Given in DS
@@ -66,6 +69,14 @@ public class OI {
 	
 	public boolean getStart() {
 		return driver.getRawButton(8);
+	}
+	
+	public double getLT() {
+		return driver.getRawAxis(2);
+	}
+	
+	public double getRT() {
+		return driver.getRawAxis(3);
 	}
 	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
