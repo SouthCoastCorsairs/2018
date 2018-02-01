@@ -7,7 +7,7 @@ package org.usfirst.frc.team5846.robot;
  * floating around.
  */
 public class RobotMap {
-	//Motor controllers, solenoids, ultrasonics, etc.
+	//Mapping Out the Ports for All Motor Controllers/Sensors
 	
 	//Motor Controllers CAN id's
 	public static int frontLeft = 0;
@@ -15,10 +15,10 @@ public class RobotMap {
 	public static int backLeft = 1;
 	public static int backRight = 3;
 	
-	//Encoders in PWM Ports
-	public static int DriveEncoderLeftA = 3;
-	public static int DriveEncoderLeftB = 4;
-	public static int DriveEncoderRightA = 2;
+	//Encoders in DIO Ports
+	public static int DriveEncoderLeftA = 2;
+	public static int DriveEncoderLeftB = 3;
+	public static int DriveEncoderRightA = 0;
 	public static int DriveEncoderRightB = 1;
 	
 	//Other Motor Controllers

@@ -1,8 +1,9 @@
 package org.usfirst.frc.team5846.robot.commands;
 
 import org.usfirst.frc.team5846.robot.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 /**
  *
@@ -12,14 +13,14 @@ public class DriveStraight extends Command {
 	private double LeftSpeed;
 	private double RightSpeed;
 	private double CurrentHeading;
-	private double HeadingError;
+	public double HeadingError;
 	private double iDistance;
-	
 
     public DriveStraight(double distance) {
     	requires(Robot.drivetrain);
         this.distance = distance;
     }
+   
 
     // Called just before this Command runs the first time
     protected void initialize() {
@@ -83,6 +84,8 @@ public class DriveStraight extends Command {
         	}
     	}
     	
+    	SmartDashboard.putNumber("Error", HeadingError); //Error is opposite sign of Angle
+    	
    }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -101,4 +104,6 @@ public class DriveStraight extends Command {
     protected void interrupted() {
     	this.end();
     }
+
+	
 }

@@ -53,15 +53,14 @@ public class Drivetrain extends Subsystem {
     SpeedControllerGroup Right = new SpeedControllerGroup(frontRight, backRight);
     
     //Alternate Drive Method
-    public DifferentialDrive Ddrive = new DifferentialDrive(Left, Right);
+    //public DifferentialDrive Ddrive = new DifferentialDrive(Left, Right);
     
     //Primary Drive Method
     public void drive(double turn, double forward) {
     	//Set with Parameters of Turn and Forward, Which are Set in Drive Command
-    	Left.set(-forward + turn);
+    	Left.set((-forward) + turn);
     	Right.set(forward + turn);
     }
-    
     
     //Get Angle Method
     public double getAngle() {

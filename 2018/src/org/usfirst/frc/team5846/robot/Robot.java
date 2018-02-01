@@ -2,9 +2,11 @@
 package org.usfirst.frc.team5846.robot;
 
 import org.usfirst.frc.team5846.robot.commands.Auto;
+import org.usfirst.frc.team5846.robot.commands.DriveStraight;
 import org.usfirst.frc.team5846.robot.subsystems.BoxHolder;
 import org.usfirst.frc.team5846.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team5846.robot.subsystems.Pneumatics;
+import org.usfirst.frc.team5846.robot.commands.DriveStraight;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -125,6 +127,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		
 		SmartDashboard.putNumber("Angle", Robot.drivetrain.getAngle());
 		SmartDashboard.putNumber("Left Distance", Robot.drivetrain.getLeftDistance());
 		SmartDashboard.putNumber("Right Distance", Robot.drivetrain.getRightDistance());
