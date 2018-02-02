@@ -14,6 +14,9 @@ public class PIDdrive extends Command {
 	private double RightSpeed;
 	private double HeadingError;
 	private double CurrentHeading;
+	private double EncoderError;
+	private double Error;
+	private double A_Error;
 	
 
     public PIDdrive(double distance) {
@@ -29,19 +32,52 @@ public class PIDdrive extends Command {
     	Robot.drivetrain.ResetEncoders();
     	Robot.drivetrain.ResetGyro();
     	
+    	LeftSpeed = .25;
+    	RightSpeed = .25;
+    	
     	CurrentHeading = Robot.drivetrain.getAngle();
+    	EncoderError = 0;
+    	Error = 0;
+    	A_Error = 0;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
+    	A_Error = Robot.drivetrain.KP * Error;
+    	
     	HeadingError = CurrentHeading - Robot.drivetrain.getAngle();
     	
-    	Robot.drivetrain.tank(LeftSpeed, RightSpeed);
+    	EncoderError = (Robot.drivetrain.LeftCM())-(Robot.drivetrain.RightCM());
+    	
+    	Error = (Robot.drivetrain.getLeftDistance()) - (Robot.drivetrain.getRightDistance());
+    	
+    	if (LeftSpeed > .25 || RightSpeed > .25) {
+    	
+    		if (A_Error > 0) {
+    			LeftSpeed = LeftSpeed - (LeftSpeed * A_Error);
+    		}
+    	
+    		else if (A_Error < 0){
+    			RightSpeed = RightSpeed + (RightSpeed * A_Error);
+    		}
+    	
+    		else {
+    			LeftSpeed = RightSpeed = .25;
+    		}
+    }
+    	
+    	Robot.drivetrain.tank(LeftSpeed, -RightSpeed);
     	
     	
     	
-    	SmartDashboard.putNumber("Error", HeadingError);
+    	SmartDashboard.putNumber("Gyro Error", HeadingError);
+    	SmartDashboard.putNumber("Encoder Error", EncoderError);
+    	SmartDashboard.putNumber("Actual Error", A_Error);
+    	SmartDashboard.putNumber("Left Speed", LeftSpeed);
+     	SmartDashboard.putNumber("Right Speed", RightSpeed);
+     	SmartDashboard.putNumber("Error", Error);
+
     }
 
     // Make this return true when this Command no longer needs to run execute()

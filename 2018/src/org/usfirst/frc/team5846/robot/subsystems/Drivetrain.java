@@ -8,6 +8,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Talon;
@@ -30,6 +32,7 @@ public class Drivetrain extends Subsystem {
 	private WPI_TalonSRX backLeft = new WPI_TalonSRX(RobotMap.backLeft);
 	private WPI_TalonSRX backRight = new WPI_TalonSRX(RobotMap.backRight);
 	
+	PIDController pid;
 	
 	//Encoders Set Here
 	public Encoder LeftEncoder = new Encoder(RobotMap.DriveEncoderLeftA, RobotMap.DriveEncoderLeftB);
@@ -39,6 +42,10 @@ public class Drivetrain extends Subsystem {
 	public final AHRS ahrs = new AHRS(SPI.Port.kMXP);
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
+	
+	public static final double KP = .06;
+	public static final double KI = 0;
+	public static final double KD = 0;
 
     public void initDefaultCommand() {
     	setDefaultCommand(new Drive());
@@ -79,6 +86,9 @@ public class Drivetrain extends Subsystem {
     	return LeftEncoder.getDistance();
     }
     
+    public void initPIDController(PIDOutput output) {
+    	//pid = new PIDController(KP, KI, KD);
+    }
     
 //    public void initEncoder() {
 //		RightEncoder.setDistancePerPulse((getRightDistance()) / 360); 
@@ -91,13 +101,13 @@ public class Drivetrain extends Subsystem {
     
     //Get Distance from Right Encoder in cm
     public double RightCM() {
-    	return RightDistance1 = (getRightDistance()*31.4)/360; //Conversion from pulses to cm 
+    	return RightDistance1 = (getRightDistance()*18.84)/360; //Conversion from pulses to cm 
     }
     
     
     //Get Distance from Left Encoder in cm
     public double LeftCM() {
-    	return LeftDistance1 = (getLeftDistance()*31.4)/360; //Conversion from pulses to cm
+    	return LeftDistance1 = (getLeftDistance()*18.84)/360; //Conversion from pulses to cm
     }
    
     public void ResetEncoders() {

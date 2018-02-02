@@ -15,6 +15,7 @@ public class DriveStraight extends Command {
 	private double CurrentHeading;
 	public double HeadingError;
 	private double iDistance;
+	private double EncoderError;
 
     public DriveStraight(double distance) {
     	requires(Robot.drivetrain);
@@ -36,6 +37,7 @@ public class DriveStraight extends Command {
     	
     	//CurrentHeading is the Initial Angle
     	CurrentHeading = Robot.drivetrain.getAngle();
+    	EncoderError = 0;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -43,6 +45,8 @@ public class DriveStraight extends Command {
     	
     	//Calculates the Error of the Robot
     	HeadingError = CurrentHeading - Robot.drivetrain.getAngle();
+    	
+    	EncoderError = (Robot.drivetrain.LeftCM())-(Robot.drivetrain.RightCM());
     	
     	Robot.drivetrain.tank(LeftSpeed, -RightSpeed);
     	
@@ -85,6 +89,7 @@ public class DriveStraight extends Command {
     	}
     	
     	SmartDashboard.putNumber("Error", HeadingError); //Error is opposite sign of Angle
+    	SmartDashboard.putNumber("Encoder Error", EncoderError);
     	
    }
 
