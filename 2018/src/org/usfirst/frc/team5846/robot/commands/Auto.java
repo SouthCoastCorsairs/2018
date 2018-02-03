@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class Auto extends CommandGroup {
 
     public Auto() {
-    	addSequential(new PIDdrive(100));
+    	addSequential(new PIDstraight(100));
     	//addSequential(new TurnAngle(30));
         // Add Commands here:
         // e.g. addSequential(new Command1());

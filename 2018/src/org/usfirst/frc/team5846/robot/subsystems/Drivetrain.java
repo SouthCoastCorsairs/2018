@@ -26,6 +26,8 @@ public class Drivetrain extends Subsystem {
 	public double RightDistance1;
 	public double LeftDistance1;
 	
+	private boolean isPIDInitialized;
+	
 	//Talon SRX CAN Motor Controllers
 	private WPI_TalonSRX frontLeft = new WPI_TalonSRX(RobotMap.frontLeft);
 	private WPI_TalonSRX frontRight = new WPI_TalonSRX(RobotMap.frontRight);
@@ -43,9 +45,10 @@ public class Drivetrain extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
-	public static final double KP = .06;
-	public static final double KI = 0;
+	public static final double KP = .1;
+	public static final double KI = 5;
 	public static final double KD = 0;
+	public static final double KF = 0;
 
     public void initDefaultCommand() {
     	setDefaultCommand(new Drive());
@@ -87,7 +90,52 @@ public class Drivetrain extends Subsystem {
     }
     
     public void initPIDController(PIDOutput output) {
-    	//pid = new PIDController(KP, KI, KD);
+    	isPIDInitialized = true;
+    	pid = new PIDController(KP, KI, KD, KF, ahrs, output);
+    	pid.setInputRange(-180.0f, 180.0f);
+    	pid.setOutputRange(-.04, .04);
+    	pid.setAbsoluteTolerance(5.0f);
+    	pid.setContinuous(true);
+    	pid.enable();
+    }
+    
+    public void onTarget() {
+    	pid.onTarget();
+    }
+    
+    public void pidSetEnabled(boolean enabled) {
+        if (enabled) {
+            pid.enable();
+        } else {
+            pid.disable();
+        }
+    }
+    
+    public void pidSetPoint(float setpoint) {
+        if (isPIDInitialized) {
+            pid.setSetpoint(setpoint);
+        }
+    }
+    
+    public void freePID() {
+        pid.disable();
+        pid.free();
+    }
+    
+    public boolean isMoving() {
+    	return ahrs.isMoving();
+    }
+    
+    public float getDisplacementX() {
+    	return ahrs.getDisplacementX();
+    }
+    
+    public float getDisplacementY() {
+    	return ahrs.getDisplacementY();
+    }
+    
+    public void resetDisplacement() {
+    	ahrs.resetDisplacement();
     }
     
 //    public void initEncoder() {
@@ -95,18 +143,18 @@ public class Drivetrain extends Subsystem {
 //		LeftEncoder.setDistancePerPulse((getLeftDistance()) / 360);    
 //    }
     
-   // public double RightCM = (getRightDistance()*31.4)/360;
+   // public double RightIN = (getRightDistance()*31.4)/360;
   //  public double LeftCM = (getLeftDistance()*31.4)/360;
     
     
     //Get Distance from Right Encoder in cm
-    public double RightCM() {
+    public double RightIN() {
     	return RightDistance1 = (getRightDistance()*18.84)/360; //Conversion from pulses to cm 
     }
     
     
     //Get Distance from Left Encoder in cm
-    public double LeftCM() {
+    public double LeftIN() {
     	return LeftDistance1 = (getLeftDistance()*18.84)/360; //Conversion from pulses to cm
     }
    
@@ -119,7 +167,7 @@ public class Drivetrain extends Subsystem {
     //For Auto
     //Checks When the Robot is at a Given Distance
     public boolean isAtDistance(double distance) {
-    	if(RightCM() > distance && LeftCM() > distance) {
+    	if(RightIN() > distance && LeftIN() > distance) {
     		stopTank();
     		return true;
     	}

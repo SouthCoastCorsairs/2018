@@ -46,13 +46,13 @@ public class DriveStraight extends Command {
     	//Calculates the Error of the Robot
     	HeadingError = CurrentHeading - Robot.drivetrain.getAngle();
     	
-    	EncoderError = (Robot.drivetrain.LeftCM())-(Robot.drivetrain.RightCM());
+    	EncoderError = (Robot.drivetrain.LeftIN())-(Robot.drivetrain.RightIN());
     	
     	Robot.drivetrain.tank(LeftSpeed, -RightSpeed);
     	
     	
     	//For the First 80% of the Distance
-    	if ((Robot.drivetrain.LeftCM() < iDistance) && (Robot.drivetrain.RightCM() < iDistance)) {
+    	if ((Robot.drivetrain.LeftIN() < iDistance) && (Robot.drivetrain.RightIN() < iDistance)) {
     	
     		//Error Correction 
     		if (HeadingError > .4) {
@@ -71,7 +71,7 @@ public class DriveStraight extends Command {
     	
     	
     	//For the Last 20% of the DistanceS
-    	else if ((Robot.drivetrain.LeftCM() > iDistance) && (Robot.drivetrain.RightCM() > iDistance)) {
+    	else if ((Robot.drivetrain.LeftIN() > iDistance) && (Robot.drivetrain.RightIN() > iDistance)) {
     		
     		//Error Correction
     		if (HeadingError > .4) {

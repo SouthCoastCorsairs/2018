@@ -136,8 +136,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Compressor Current", Robot.pt.current);
 		//SmartDashboard.putNumber("Right Encoder (rotation)", Robot.drivetrain.getRightDistance()/360);
 		//SmartDashboard.putNumber("Right Encoder (cm)", (Robot.drivetrain.getRightDistance()*31.4)/360);
-		SmartDashboard.putNumber("Right Encoder (cm)", Robot.drivetrain.RightCM());
-		SmartDashboard.putNumber("Left Encoder (cm)", Robot.drivetrain.LeftCM());
+		SmartDashboard.putNumber("Right Encoder (cm)", Robot.drivetrain.RightIN());
+		SmartDashboard.putNumber("Left Encoder (cm)", Robot.drivetrain.LeftIN());
 		Scheduler.getInstance().run();
 	}
 
@@ -166,8 +166,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Compressor Current", Robot.pt.current);
 		//SmartDashboard.putNumber("Right Encoder (rotation)", Robot.drivetrain.getRightDistance()/360);
 		//SmartDashboard.putNumber("Right Encoder (cm)", (Robot.drivetrain.getRightDistance()*31.4)/360);
-		SmartDashboard.putNumber("Right Encoder (cm)", Robot.drivetrain.RightCM());
-		SmartDashboard.putNumber("Left Encoder (cm)", Robot.drivetrain.LeftCM());
+		SmartDashboard.putNumber("Right Encoder (cm)", Robot.drivetrain.RightIN());
+		SmartDashboard.putNumber("Left Encoder (cm)", Robot.drivetrain.LeftIN());
 		
 		
 		Scheduler.getInstance().run();

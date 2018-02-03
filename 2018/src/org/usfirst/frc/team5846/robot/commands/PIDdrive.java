@@ -2,6 +2,7 @@ package org.usfirst.frc.team5846.robot.commands;
 
 import org.usfirst.frc.team5846.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -9,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class PIDdrive extends Command {
+	Timer timer = new Timer();
 	private double distance;
 	private double LeftSpeed;
 	private double RightSpeed;
@@ -16,7 +18,13 @@ public class PIDdrive extends Command {
 	private double CurrentHeading;
 	private double EncoderError;
 	private double Error;
-	private double A_Error;
+	private double P_Error;
+	private double I_Error;
+	private double Error_Prev;
+	private double speed;
+	private double rpsL;
+	private double rpsR;
+	private double d_speed;
 	
 
     public PIDdrive(double distance) {
@@ -29,54 +37,73 @@ public class PIDdrive extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+       	timer.start();
     	Robot.drivetrain.ResetEncoders();
     	Robot.drivetrain.ResetGyro();
     	
-    	LeftSpeed = .25;
-    	RightSpeed = .25;
+    	speed = .2;
+    	
+    	rpsL = rpsR = 1.173; 
+    	
+    	LeftSpeed = speed;
+    	RightSpeed = speed;
     	
     	CurrentHeading = Robot.drivetrain.getAngle();
     	EncoderError = 0;
-    	Error = 0;
-    	A_Error = 0;
+    	P_Error = 0;
+    	Error_Prev = 0;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	A_Error = Robot.drivetrain.KP * Error;
+    	P_Error = Robot.drivetrain.KP * Error;
+    	
+    	I_Error = (P_Error - Error_Prev)*Robot.drivetrain.KI;
+    	
+    	rpsL = ((Robot.drivetrain.getLeftDistance())/360)/timer.get();
+    	
+    	rpsR = ((Robot.drivetrain.getRightDistance())/360)/timer.get();
+    	
+    	Error_Prev = P_Error;
     	
     	HeadingError = CurrentHeading - Robot.drivetrain.getAngle();
     	
-    	EncoderError = (Robot.drivetrain.LeftCM())-(Robot.drivetrain.RightCM());
+    	EncoderError = (Robot.drivetrain.LeftIN())-(Robot.drivetrain.RightIN());
     	
     	Error = (Robot.drivetrain.getLeftDistance()) - (Robot.drivetrain.getRightDistance());
     	
-    	if (LeftSpeed > .25 || RightSpeed > .25) {
+    	if (LeftSpeed > speed || RightSpeed > speed) {
     	
-    		if (A_Error > 0) {
-    			LeftSpeed = LeftSpeed - (LeftSpeed * A_Error);
-    		}
+    			
+    			LeftSpeed = (LeftSpeed - ((LeftSpeed * P_Error)+(LeftSpeed * I_Error)));
+    			RightSpeed = (RightSpeed + ((RightSpeed * P_Error)+(RightSpeed * I_Error)));
+    		//}
     	
-    		else if (A_Error < 0){
-    			RightSpeed = RightSpeed + (RightSpeed * A_Error);
-    		}
+//    		else if (A_Error < 0){
+//    			RightSpeed = RightSpeed + (RightSpeed * A_Error);
+//    			LeftSpeed = LeftSpeed - (LeftSpeed * A_Error);
+//    		}
     	
-    		else {
-    			LeftSpeed = RightSpeed = .25;
-    		}
+//    		else {
+//    			LeftSpeed = RightSpeed = speed;
+//    		}
     }
+    	
+    	else if (LeftSpeed > .4 || RightSpeed > .4) {
+    		Robot.drivetrain.stopTank();
+    	}
     	
     	Robot.drivetrain.tank(LeftSpeed, -RightSpeed);
     	
-    	
-    	
     	SmartDashboard.putNumber("Gyro Error", HeadingError);
     	SmartDashboard.putNumber("Encoder Error", EncoderError);
-    	SmartDashboard.putNumber("Actual Error", A_Error);
+    	SmartDashboard.putNumber("Proportional Error", P_Error);
     	SmartDashboard.putNumber("Left Speed", LeftSpeed);
      	SmartDashboard.putNumber("Right Speed", RightSpeed);
      	SmartDashboard.putNumber("Error", Error);
+     	SmartDashboard.putNumber("Integral Error", I_Error);
+     	SmartDashboard.putNumber("Timer", timer.get());
 
     }
 
