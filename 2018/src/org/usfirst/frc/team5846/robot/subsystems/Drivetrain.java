@@ -27,6 +27,7 @@ public class Drivetrain extends Subsystem {
 	public double LeftDistance1;
 	
 	private boolean isPIDInitialized;
+	static final double kToleranceDegrees = 0.1f;
 	
 	//Talon SRX CAN Motor Controllers
 	private WPI_TalonSRX frontLeft = new WPI_TalonSRX(RobotMap.frontLeft);
@@ -34,7 +35,7 @@ public class Drivetrain extends Subsystem {
 	private WPI_TalonSRX backLeft = new WPI_TalonSRX(RobotMap.backLeft);
 	private WPI_TalonSRX backRight = new WPI_TalonSRX(RobotMap.backRight);
 	
-	PIDController pid;
+	PIDController drivePID;
 	
 	//Encoders Set Here
 	public Encoder LeftEncoder = new Encoder(RobotMap.DriveEncoderLeftA, RobotMap.DriveEncoderLeftB);
@@ -45,8 +46,8 @@ public class Drivetrain extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
-	public static final double KP = .1;
-	public static final double KI = 5;
+	public static final double KP = .03;
+	public static final double KI = .0015;
 	public static final double KD = 0;
 	public static final double KF = 0;
 
@@ -72,6 +73,31 @@ public class Drivetrain extends Subsystem {
     	Right.set(forward + turn);
     }
     
+    public void initPID(PIDOutput output) {
+    	isPIDInitialized = true;
+    	drivePID = new PIDController(KP, KI, KD, KF, ahrs, output);
+        drivePID.setInputRange(-180.0f,  180.0f);
+        drivePID.setOutputRange(-.4, .4);
+        drivePID.setAbsoluteTolerance(kToleranceDegrees);
+        drivePID.setContinuous(true);
+        drivePID.enable();
+    }
+    
+    public boolean onTarget() {
+        return drivePID.onTarget();
+    }
+    
+    public void pidSetPoint(float setpoint) {
+        if (isPIDInitialized) {
+            drivePID.setSetpoint(setpoint);
+        }
+    }
+    
+    public void freePID() {
+        drivePID.disable();
+        drivePID.free();
+    }
+    
     //Get Angle Method
     public double getAngle() {
     	return ahrs.getAngle();
@@ -89,38 +115,7 @@ public class Drivetrain extends Subsystem {
     	return LeftEncoder.getDistance();
     }
     
-    public void initPIDController(PIDOutput output) {
-    	isPIDInitialized = true;
-    	pid = new PIDController(KP, KI, KD, KF, ahrs, output);
-    	pid.setInputRange(-180.0f, 180.0f);
-    	pid.setOutputRange(-.04, .04);
-    	pid.setAbsoluteTolerance(5.0f);
-    	pid.setContinuous(true);
-    	pid.enable();
-    }
     
-    public void onTarget() {
-    	pid.onTarget();
-    }
-    
-    public void pidSetEnabled(boolean enabled) {
-        if (enabled) {
-            pid.enable();
-        } else {
-            pid.disable();
-        }
-    }
-    
-    public void pidSetPoint(float setpoint) {
-        if (isPIDInitialized) {
-            pid.setSetpoint(setpoint);
-        }
-    }
-    
-    public void freePID() {
-        pid.disable();
-        pid.free();
-    }
     
     public boolean isMoving() {
     	return ahrs.isMoving();
@@ -167,7 +162,7 @@ public class Drivetrain extends Subsystem {
     //For Auto
     //Checks When the Robot is at a Given Distance
     public boolean isAtDistance(double distance) {
-    	if(RightIN() > distance && LeftIN() > distance) {
+    	if(RightIN() >= distance && LeftIN() >= distance) {
     		stopTank();
     		return true;
     	}
@@ -180,9 +175,9 @@ public class Drivetrain extends Subsystem {
     //For Auto
     //Checks When the Robot is at a Given Angle
     public boolean isAtAngle(double angle) {
-    	if(getAngle() > Math.abs(angle)) {
-    		stopTank();
+    	if(Math.abs(getAngle()) >= Math.abs(angle)) {
     		return true;
+    		
     	}
     	else {
     		return false;

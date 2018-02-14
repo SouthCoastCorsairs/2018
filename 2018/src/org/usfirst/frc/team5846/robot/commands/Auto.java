@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5846.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 
 /**	Sequential Command Group
  *	This is Used for Chaining Auto Commands 
@@ -9,7 +10,13 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class Auto extends CommandGroup {
 
     public Auto() {
-    	addSequential(new PIDstraight(100));
+    	//addSequential(new IndPID(150));
+    	addSequential(new PIDdrive(100));
+    	addSequential(new WaitCommand(1));
+    	addSequential(new TurnAngle(90.0f, 5));
+    	
+    	
+    	//addSequential(new TurnAngle(-90.0f, 5));
     	//addSequential(new TurnAngle(30));
         // Add Commands here:
         // e.g. addSequential(new Command1());

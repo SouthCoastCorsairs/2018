@@ -2,11 +2,10 @@
 package org.usfirst.frc.team5846.robot;
 
 import org.usfirst.frc.team5846.robot.commands.Auto;
-import org.usfirst.frc.team5846.robot.commands.DriveStraight;
 import org.usfirst.frc.team5846.robot.subsystems.BoxHolder;
 import org.usfirst.frc.team5846.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team5846.robot.subsystems.Navx;
 import org.usfirst.frc.team5846.robot.subsystems.Pneumatics;
-import org.usfirst.frc.team5846.robot.commands.DriveStraight;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -32,6 +31,7 @@ public class Robot extends IterativeRobot {
 	public static final Drivetrain drivetrain = new Drivetrain();
 	public static final Pneumatics pt = new Pneumatics();
 	public static final BoxHolder box = new BoxHolder();
+	public static final Navx navx = new Navx();
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -166,8 +166,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Compressor Current", Robot.pt.current);
 		//SmartDashboard.putNumber("Right Encoder (rotation)", Robot.drivetrain.getRightDistance()/360);
 		//SmartDashboard.putNumber("Right Encoder (cm)", (Robot.drivetrain.getRightDistance()*31.4)/360);
-		SmartDashboard.putNumber("Right Encoder (cm)", Robot.drivetrain.RightIN());
-		SmartDashboard.putNumber("Left Encoder (cm)", Robot.drivetrain.LeftIN());
+		SmartDashboard.putNumber("Right Encoder (in)", Robot.drivetrain.RightIN());
+		SmartDashboard.putNumber("Left Encoder (in)", Robot.drivetrain.LeftIN());
 		
 		
 		Scheduler.getInstance().run();

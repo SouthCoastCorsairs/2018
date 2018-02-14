@@ -56,7 +56,7 @@ public class Drive extends Command {
     	//Robot.drivetrain.Ddrive.arcadeDrive((Robot.oi.getYaxis()*speed), (Robot.oi.getYaxis()*turn));
     	
     	//Primary Drive Method
-    	Robot.drivetrain.drive((Robot.oi.getXaxis()*turn), (Robot.oi.getYaxis()*speed));
+    	Robot.drivetrain.drive((Robot.oi.getXaxis()*speed), (Robot.oi.getYaxis()*speed));
     }
 
     // Make this return true when this Command no longer needs to run execute()
