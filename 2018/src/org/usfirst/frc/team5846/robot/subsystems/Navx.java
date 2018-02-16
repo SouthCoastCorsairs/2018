@@ -28,7 +28,7 @@ public class Navx extends Subsystem {
 	public final AHRS ahrs = new AHRS(SPI.Port.kMXP);
 	public PIDController turnController;
 	double currentRotationRate;
-	Ultrasonic us = new Ultrasonic(null, null);
+	//Ultrasonic us = new Ultrasonic(null, null);
 	
 	static final double kToleranceDegrees = 0.5f;
 

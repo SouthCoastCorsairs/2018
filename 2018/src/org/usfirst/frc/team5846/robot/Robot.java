@@ -1,7 +1,14 @@
 
 package org.usfirst.frc.team5846.robot;
 
-import org.usfirst.frc.team5846.robot.commands.Auto;
+import org.usfirst.frc.team5846.robot.auto.AroundFromLeft;
+import org.usfirst.frc.team5846.robot.auto.AroundFromRight;
+import org.usfirst.frc.team5846.robot.auto.Baseline;
+import org.usfirst.frc.team5846.robot.auto.DoNothing;
+import org.usfirst.frc.team5846.robot.auto.StraightDrop;
+import org.usfirst.frc.team5846.robot.auto.StraightLeftDrop;
+import org.usfirst.frc.team5846.robot.auto.StraightRightDrop;
+import org.usfirst.frc.team5846.robot.auto.TurnToAngle;
 import org.usfirst.frc.team5846.robot.subsystems.BoxHolder;
 import org.usfirst.frc.team5846.robot.subsystems.Climb;
 import org.usfirst.frc.team5846.robot.subsystems.Drivetrain;
@@ -49,7 +56,14 @@ public class Robot extends IterativeRobot {
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 		
-		chooser.addDefault("Auto", new Auto());
+		chooser.addDefault("Straight Drop", new StraightDrop());
+		chooser.addObject("Foward Left Drop", new StraightLeftDrop());
+		chooser.addObject("Foward Right Drop", new StraightRightDrop());
+		chooser.addObject("Baseline", new Baseline());
+		chooser.addObject("Do Nothing", new DoNothing());
+		chooser.addObject("Right Side to Left Switch", new AroundFromRight());
+		chooser.addObject("Left Side to Right Switch", new AroundFromLeft());
+		chooser.addObject("Turn to Angle", new TurnToAngle());
 	}
 
 	/**
