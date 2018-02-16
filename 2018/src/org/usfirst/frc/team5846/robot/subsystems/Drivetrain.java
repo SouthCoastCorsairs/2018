@@ -68,6 +68,7 @@ public class Drivetrain extends Subsystem {
     
     //Primary Drive Method
     public void drive(double turn, double forward) {
+    	turn *= .90;
     	//Set with Parameters of Turn and Forward, Which are Set in Drive Command
     	Left.set((-forward) + turn);
     	Right.set(forward + turn);

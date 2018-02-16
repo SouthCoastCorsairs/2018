@@ -8,6 +8,7 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -27,6 +28,7 @@ public class Navx extends Subsystem {
 	public final AHRS ahrs = new AHRS(SPI.Port.kMXP);
 	public PIDController turnController;
 	double currentRotationRate;
+	Ultrasonic us = new Ultrasonic(null, null);
 	
 	static final double kToleranceDegrees = 0.5f;
 

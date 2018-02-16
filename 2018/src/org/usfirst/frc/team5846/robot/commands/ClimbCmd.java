@@ -7,12 +7,10 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class BoxCmd extends Command {
-	//Scale of the Lift Speed
-	private double scale = .5;
+public class ClimbCmd extends Command {
 
-    public BoxCmd() {
-    	requires(Robot.box);
+    public ClimbCmd() {
+    	requires(Robot.climb);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -23,12 +21,17 @@ public class BoxCmd extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	if (Robot.oi.getLT2() > .25) { 
+    		Robot.climb.climb(-.5);
+    	}
     	
-
+    	else if (Robot.oi.getRT2() > .25) {
+    		Robot.climb.climb(.5);
+    	}
     	
-    	//Lift Method
-    	Robot.box.lift((Robot.oi.getY2axis()*scale));
-    	
+    	else {
+    		Robot.climb.climb(0);
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

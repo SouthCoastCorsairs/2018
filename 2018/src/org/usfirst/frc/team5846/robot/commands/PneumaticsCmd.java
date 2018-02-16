@@ -26,20 +26,16 @@ public class PneumaticsCmd extends Command {
     protected void execute() {
     	
     	//Retract When LB is Pressed
-    	if (Robot.oi.getLB()) {
-    		Robot.pt.ds.set(DoubleSolenoid.Value.kReverse);
+    	if (Robot.oi.getLB2()) {
+    		Robot.pt.s1.set(false);
+    		Robot.pt.s2.set(false);
     	}
     	
     	
     	//Extend When RB is Pressed
-    	if (Robot.oi.getRB()) {
-    		Robot.pt.ds.set(DoubleSolenoid.Value.kForward);
-    	}
-    	
-    	
-    	//Off When Start is Pressed
-    	if (Robot.oi.getStart()) {
-    		Robot.pt.ds.set(DoubleSolenoid.Value.kOff);
+    	if (Robot.oi.getRB2()) {
+    		Robot.pt.s1.set(true);
+    		Robot.pt.s2.set(true);
     	}
     }
 

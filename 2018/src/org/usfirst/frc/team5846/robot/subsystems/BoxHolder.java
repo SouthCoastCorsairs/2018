@@ -1,5 +1,6 @@
 package org.usfirst.frc.team5846.robot.subsystems;
 
+import org.usfirst.frc.team5846.robot.Robot;
 import org.usfirst.frc.team5846.robot.RobotMap;
 import org.usfirst.frc.team5846.robot.commands.BoxCmd;
 
@@ -14,8 +15,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class BoxHolder extends Subsystem {
+	
 	//Lift Motor
-	Victor lift = new Victor(RobotMap.liftMotor);
+	Victor lift1 = new Victor(RobotMap.liftMotor1);
+	Victor lift2 = new Victor(RobotMap.liftMotor2);
 	
 	//Two Intake Motors
 	Victor intakeLeft = new Victor(RobotMap.intakeLeft);
@@ -34,7 +37,26 @@ public class BoxHolder extends Subsystem {
     }
     
     public void lift(double speed) {
-    	lift.set(speed);
+    	lift1.set(speed);
+    	lift2.set(speed);
+    }
+    
+    public void intake() {
+    	if (Robot.oi.getA2()) {
+    		intakeLeft.set(-.5);
+    		intakeRight.set(.5);
+    	}
+    	
+    	else if (Robot.oi.getY2()) {
+    		intakeLeft.set(.5);
+        	intakeRight.set(-.5);//Unsure about the negatives
+    	}
+    	
+    	else {
+    		intakeLeft.set(0);
+    		intakeRight.set(0);
+    	}
+    	
     }
 }
 

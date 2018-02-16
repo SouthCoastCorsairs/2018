@@ -16,6 +16,7 @@ public class OI {
 	
 	//Defining Joystick in Port 0
 	Joystick driver = new Joystick(0);
+	Joystick manipulator = new Joystick(1);
 	
 	
 	//Get the Axis of the Joystick
@@ -25,18 +26,34 @@ public class OI {
 		return driver.getRawAxis(0);
 	}
 	
+	public double getX2axis() {
+		return manipulator.getRawAxis(0);
+	}
+	
 	public double getYaxis() {
 		return driver.getRawAxis(1);
 	}	
 	
+	public double getY2axis() {
+		return manipulator.getRawAxis(1);
+	}
+	
 	public double getRY() {
 		return driver.getRawAxis(5);
+	}
+	
+	public double getRY2() {
+		return manipulator.getRawAxis(5);
 	}
 	
 	//Get When the Buttons are Pressed
 	//Numbers for Buttons are Given in DS
 	public boolean getA() {
 		return driver.getRawButton(1);
+	}
+	
+	public boolean getA2() {
+		return manipulator.getRawButton(1);
 	}
 	
 	public boolean getB() {
@@ -51,12 +68,24 @@ public class OI {
 		return driver.getRawButton(4);
 	}
 	
+	public boolean getY2() {
+		return manipulator.getRawButton(4);
+	}
+	
 	public boolean getLB() {
 		return driver.getRawButton(5);
 	}
 	
+	public boolean getLB2() {
+		return manipulator.getRawButton(5);
+	}
+	
 	public boolean getRB() {
 		return driver.getRawButton(6);
+	}
+	
+	public boolean getRB2() {
+		return manipulator.getRawButton(6);
 	}
 	
 	public boolean getLstick() {
@@ -73,11 +102,19 @@ public class OI {
 	
 	//Triggers, Which Return as an Axis
 	public double getLT() {
-		return driver.getRawAxis(2);
+		return manipulator.getRawAxis(2);
+	}
+	
+	public double getLT2() {
+		return manipulator.getRawAxis(2);
 	}
 	
 	public double getRT() {
-		return driver.getRawAxis(3);
+		return manipulator.getRawAxis(3);
+	}
+	
+	public double getRT2() {
+		return manipulator.getRawAxis(3);
 	}
 	
 	//// CREATING BUTTONS

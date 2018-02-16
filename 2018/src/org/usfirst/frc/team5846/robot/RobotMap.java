@@ -22,9 +22,15 @@ public class RobotMap {
 	public static int DriveEncoderRightB = 1;
 	
 	//Other Motor Controllers
-	public static int liftMotor = 4;
-	public static int intakeLeft = 5;
-	public static int intakeRight = 6;
+	public static int liftMotor1 = 0;
+	public static int liftMotor2 = 1;
+	public static int intakeLeft = 2;
+	public static int intakeRight = 3;
+	public static int climb1 = 4;
+	public static int climb2 = 5;
+	
+	public static int Solenoid1 = 0;
+	public static int Solenoid2 = 1;
 	
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
