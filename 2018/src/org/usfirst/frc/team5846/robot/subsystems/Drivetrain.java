@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -34,6 +35,8 @@ public class Drivetrain extends Subsystem {
 	private WPI_TalonSRX frontRight = new WPI_TalonSRX(RobotMap.frontRight);
 	private WPI_TalonSRX backLeft = new WPI_TalonSRX(RobotMap.backLeft);
 	private WPI_TalonSRX backRight = new WPI_TalonSRX(RobotMap.backRight);
+	
+	public Ultrasonic us = new Ultrasonic(1,1);
 	
 	PIDController drivePID;
 	
@@ -97,6 +100,12 @@ public class Drivetrain extends Subsystem {
     public void freePID() {
         drivePID.disable();
         drivePID.free();
+    }
+    
+    public double ReadInches() {
+    	us.ping();
+    	return us.getRangeInches();
+    	
     }
     
     //Get Angle Method

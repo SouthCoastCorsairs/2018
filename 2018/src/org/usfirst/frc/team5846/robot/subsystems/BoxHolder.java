@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -25,11 +26,12 @@ public class BoxHolder extends Subsystem {
 	Victor intakeRight = new Victor(RobotMap.intakeRight);
 	
 	//Both Intake Motors Combined
-	public SpeedControllerGroup intake = new SpeedControllerGroup(intakeLeft, intakeRight);
-
+	//public SpeedControllerGroup intake = new SpeedControllerGroup(intakeLeft, intakeRight);
+	public SpeedControllerGroup intake = new SpeedControllerGroup(intakeLeft);
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-
+	//Timer timer = new Timer();
+	
     public void initDefaultCommand() {
     	setDefaultCommand(new BoxCmd());
         // Set the default command for a subsystem here.
@@ -37,25 +39,27 @@ public class BoxHolder extends Subsystem {
     }
     
     public void lift(double speed) {
+    	//timer.start();
     	lift1.set(speed);
     	lift2.set(speed);
+    	//double t_currentt = timer.get();
     }
     
-    public void intake() {
-    	if (Robot.oi.getA2()) {
-    		intakeLeft.set(-.5);
-    		intakeRight.set(.5);
-    	}
+    public void intake(double speed) {
+//    	if (Robot.oi.getA2()) {
+    		intakeLeft.set(speed);  // negative sign removed
+   // 		intakeRight.set(.5);
+ //   	}
     	
-    	else if (Robot.oi.getY2()) {
-    		intakeLeft.set(.5);
-        	intakeRight.set(-.5);//Unsure about the negatives
-    	}
-    	
-    	else {
-    		intakeLeft.set(0);
-    		intakeRight.set(0);
-    	}
+  //  	else if (Robot.oi.getY2()) {
+  //  		intakeLeft.set(.5);
+  //      	intakeRight.set(-.5);//Unsure about the negatives
+  //  	}
+  //  	
+  //  	else {
+  //  		intakeLeft.set(0);
+    		//intakeRight.set(0);
+  //  	}
     	
     }
 }
