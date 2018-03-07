@@ -36,7 +36,7 @@ public class Drivetrain extends Subsystem {
 	private WPI_TalonSRX backLeft = new WPI_TalonSRX(RobotMap.backLeft);
 	private WPI_TalonSRX backRight = new WPI_TalonSRX(RobotMap.backRight);
 	
-	public Ultrasonic us = new Ultrasonic(1,1);
+	//public Ultrasonic us = new Ultrasonic(1,1);
 	
 	PIDController drivePID;
 	
@@ -102,11 +102,11 @@ public class Drivetrain extends Subsystem {
         drivePID.free();
     }
     
-    public double ReadInches() {
-    	us.ping();
-    	return us.getRangeInches();
-    	
-    }
+//    public double ReadInches() {
+//    	us.ping();
+//    	return us.getRangeInches();
+//    	
+//    }
     
     //Get Angle Method
     public double getAngle() {

@@ -23,9 +23,9 @@ public class RobotMap {
 	
 	//Other Motor Controllers
 	public static int liftMotor1 = 0;
-	public static int liftMotor2 = 1;
-	public static int intakeLeft = 2;
-	public static int intakeRight = 3;
+	public static int liftMotor2 = 2;
+	public static int intakeLeft = 8;
+	public static int intakeRight = 9;
 	public static int climb1 = 4;
 	public static int climb2 = 5;
 	

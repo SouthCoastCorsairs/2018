@@ -35,15 +35,15 @@ public class DriveToSurface extends Command implements PIDOutput {
     	Robot.drivetrain.tank((.3 + pidOutput), -(.3 - pidOutput));
     	
     	SmartDashboard.putNumber("PIDOutput", pidOutput);
-    	SmartDashboard.putNumber("Ultrasonic Distance", Robot.drivetrain.ReadInches());
+    	//SmartDashboard.putNumber("Ultrasonic Distance", Robot.drivetrain.ReadInches());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if (Robot.drivetrain.ReadInches() < 5) {
-    		Robot.drivetrain.stopTank();
-    		return true;
-    	}
+    	//if (Robot.drivetrain.ReadInches() < 5) {
+    		//Robot.drivetrain.stopTank();
+    		//return true;
+    	//}
     		return false;
     	
     }

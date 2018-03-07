@@ -48,7 +48,7 @@ public class BoxHolder extends Subsystem {
     public void intake(double speed) {
 //    	if (Robot.oi.getA2()) {
     		intakeLeft.set(speed);  // negative sign removed
-   // 		intakeRight.set(.5);
+    		intakeRight.set(speed);
  //   	}
     	
   //  	else if (Robot.oi.getY2()) {
