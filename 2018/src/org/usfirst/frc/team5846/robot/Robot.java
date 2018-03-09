@@ -18,6 +18,7 @@ import org.usfirst.frc.team5846.robot.subsystems.Pneumatics;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -54,16 +55,18 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		//chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", chooser);
 		
-		chooser.addDefault("Straight Drop", new StraightDrop());
+		
+		chooser.addObject("Straight Drop", new StraightDrop());
 		chooser.addObject("Foward Left Drop", new StraightLeftDrop());
 		chooser.addObject("Foward Right Drop", new StraightRightDrop());
 		chooser.addObject("Baseline", new Baseline());
 		chooser.addObject("Do Nothing", new DoNothing());
 		chooser.addObject("Right Side to Left Switch", new AroundFromRight());
 		chooser.addObject("Left Side to Right Switch", new AroundFromLeft());
-		chooser.addObject("Turn to Angle", new TurnToAngle());
+		chooser.addDefault("Turn to Angle", new TurnToAngle());
+		
+		SmartDashboard.putData("Auto mode", chooser);
 	}
 
 	/**
@@ -143,18 +146,19 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		Scheduler.getInstance().run();
 		
 		SmartDashboard.putNumber("Angle", Robot.drivetrain.getAngle());
 		SmartDashboard.putNumber("Left Distance", Robot.drivetrain.getLeftDistance());
 		SmartDashboard.putNumber("Right Distance", Robot.drivetrain.getRightDistance());
-		SmartDashboard.putBoolean("Compressor Status", Robot.pt.enabled);
-		SmartDashboard.putBoolean("Pressure Switch Status", Robot.pt.pressureSwitch);
-		SmartDashboard.putNumber("Compressor Current", Robot.pt.current);
+		//SmartDashboard.putBoolean("Compressor Status", Robot.pt.enabled);
+		//SmartDashboard.putBoolean("Pressure Switch Status", Robot.pt.pressureSwitch);
+		//SmartDashboard.putNumber("Compressor Current", Robot.pt.current);
 		//SmartDashboard.putNumber("Right Encoder (rotation)", Robot.drivetrain.getRightDistance()/360);
 		//SmartDashboard.putNumber("Right Encoder (cm)", (Robot.drivetrain.getRightDistance()*31.4)/360);
 		SmartDashboard.putNumber("Right Encoder (cm)", Robot.drivetrain.RightIN());
 		SmartDashboard.putNumber("Left Encoder (cm)", Robot.drivetrain.LeftIN());
-		Scheduler.getInstance().run();
+		
 	}
 
 	@Override
@@ -177,9 +181,9 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Angle", Robot.drivetrain.getAngle());
 		SmartDashboard.putNumber("Left Distance", Robot.drivetrain.getLeftDistance());
 		SmartDashboard.putNumber("Right Distance", Robot.drivetrain.getRightDistance());
-		SmartDashboard.putBoolean("Compressor Status", Robot.pt.enabled);
-		SmartDashboard.putBoolean("Pressure Switch Status", Robot.pt.pressureSwitch);
-		SmartDashboard.putNumber("Compressor Current", Robot.pt.current);
+//		SmartDashboard.putBoolean("Compressor Status", Robot.pt.enabled);
+//		SmartDashboard.putBoolean("Pressure Switch Status", Robot.pt.pressureSwitch);
+//		SmartDashboard.putNumber("Compressor Current", Robot.pt.current);
 		//SmartDashboard.putNumber("Right Encoder (rotation)", Robot.drivetrain.getRightDistance()/360);
 		//SmartDashboard.putNumber("Right Encoder (cm)", (Robot.drivetrain.getRightDistance()*31.4)/360);
 		SmartDashboard.putNumber("Right Encoder (in)", Robot.drivetrain.RightIN());

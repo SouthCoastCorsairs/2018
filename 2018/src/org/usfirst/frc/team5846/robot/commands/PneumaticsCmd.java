@@ -26,17 +26,17 @@ public class PneumaticsCmd extends Command {
     protected void execute() {
     	
     	//Retract When LB is Pressed
-    	if (Robot.oi.getLB2()) {
-    		Robot.pt.s1.set(false);
-    		Robot.pt.s2.set(false);
-    	}
-    	
-    	
-    	//Extend When RB is Pressed
-    	if (Robot.oi.getRB2()) {
-    		Robot.pt.s1.set(true);
-    		Robot.pt.s2.set(true);
-    	}
+//    	if (Robot.oi.getLB2()) {
+//    		Robot.pt.s1.set(false);
+//    		Robot.pt.s2.set(false);
+//    	}
+//    	
+//    	
+//    	//Extend When RB is Pressed
+//    	if (Robot.oi.getRB2()) {
+//    		Robot.pt.s1.set(true);
+//    		Robot.pt.s2.set(true);
+//    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

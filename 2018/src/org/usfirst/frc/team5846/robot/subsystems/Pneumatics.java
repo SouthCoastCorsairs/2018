@@ -13,13 +13,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class Pneumatics extends Subsystem {
-	public Compressor c = new Compressor(0);
-	//public DoubleSolenoid ds = new DoubleSolenoid(0,1);
-	public Solenoid s1 = new Solenoid(RobotMap.Solenoid1);
-	public Solenoid s2 = new Solenoid(RobotMap.Solenoid2);
-	public boolean enabled = c.enabled();
-	public boolean pressureSwitch = c.getPressureSwitchValue();
-	public double current = c.getCompressorCurrent();
+//	public Compressor c = new Compressor(0);
+//	//public DoubleSolenoid ds = new DoubleSolenoid(0,1);
+//	public Solenoid s1 = new Solenoid(RobotMap.Solenoid1);
+//	public Solenoid s2 = new Solenoid(RobotMap.Solenoid2);
+//	public boolean enabled = c.enabled();
+//	public boolean pressureSwitch = c.getPressureSwitchValue();
+//	public double current = c.getCompressorCurrent();
 
     public void initDefaultCommand() {
     	setDefaultCommand(new PneumaticsCmd());
@@ -29,7 +29,7 @@ public class Pneumatics extends Subsystem {
     
     public void setClosedLoopControl() {
     	//Automatically Enables Compressor When the Robot is Enabled
-    	c.setClosedLoopControl(true);
+    	//c.setClosedLoopControl(true);
     }
     
     

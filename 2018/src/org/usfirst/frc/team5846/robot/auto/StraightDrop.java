@@ -1,6 +1,5 @@
 package org.usfirst.frc.team5846.robot.auto;
 
-import org.usfirst.frc.team5846.robot.commands.DriveToSurface;
 import org.usfirst.frc.team5846.robot.commands.IntakeAuto;
 import org.usfirst.frc.team5846.robot.commands.LiftAuto;
 import org.usfirst.frc.team5846.robot.commands.PIDdrive;
@@ -13,8 +12,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class StraightDrop extends CommandGroup {
 
     public StraightDrop() {
-    	addSequential(new DriveToSurface(150));
-    	//addSequential(new PIDdrive(140));
+    	//addSequential(new DriveToSurface(150));
+    	addSequential(new PIDdrive(140));
     	addSequential(new LiftAuto(.5));
     	addSequential(new IntakeAuto(3));
         // Add Commands here:

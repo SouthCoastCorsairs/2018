@@ -102,13 +102,13 @@ public class IndPID extends Command {
     	
     	
     	
-    	SmartDashboard.putNumber("Left Speed", LeftSpeed);
-    	SmartDashboard.putNumber("Right Speed", RightSpeed);
-    	SmartDashboard.putNumber("RPS Left", 100 * rps_l);
-    	SmartDashboard.putNumber("RPS Right", 100 * rps_r);
-    	SmartDashboard.putNumber("Left Error", LeftError * 100);
-    	SmartDashboard.putNumber("Right Error", RightError * 100);
-    	SmartDashboard.putNumber("Integral Error", I_ErrorL);
+//    	SmartDashboard.putNumber("Left Speed", LeftSpeed);
+//    	SmartDashboard.putNumber("Right Speed", RightSpeed);
+//    	SmartDashboard.putNumber("RPS Left", 100 * rps_l);
+//    	SmartDashboard.putNumber("RPS Right", 100 * rps_r);
+//    	SmartDashboard.putNumber("Left Error", LeftError * 100);
+//    	SmartDashboard.putNumber("Right Error", RightError * 100);
+//    	SmartDashboard.putNumber("Integral Error", I_ErrorL);
     }
 
     // Make this return true when this Command no longer needs to run execute()
