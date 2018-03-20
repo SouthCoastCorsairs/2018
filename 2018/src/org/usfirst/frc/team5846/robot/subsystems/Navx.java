@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Navx extends Subsystem {
 	static final double kP = .02;
-	static final double kI = .0015;
+	static final double kI = 0;
 	static final double kD = 0;
 	static final double kF = 0;
 	

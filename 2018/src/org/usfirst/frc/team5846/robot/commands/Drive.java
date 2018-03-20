@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class Drive extends Command {
 	private double speed = 1;
+	private double direction;
 	private double turn = .80;
 
     public Drive() {
@@ -30,16 +31,19 @@ public class Drive extends Command {
     	if (Robot.oi.getA()) {
     		speed = 1;
     		turn = .80;
+    		direction = 1;
     	}
     	
     	if (Robot.oi.getB()) {
     		speed = .75;
     		turn = .70;
+    		direction = 1;
     	}
     	
     	if (Robot.oi.getY()) {
     		speed = .5;
     		turn = .45;
+    		direction = 1;
     	}
     	
     	if (Robot.oi.getX()) {
@@ -47,6 +51,10 @@ public class Drive extends Command {
     		turn = .20;
     	}
     	
+    	if (Robot.oi.getStart()) {
+    		speed = 1;
+    		direction = -1;
+    	}
     	
     	//Calls Drive Method from Drivetrain
     	//Turnspeed, Fowardspeed
@@ -56,7 +64,7 @@ public class Drive extends Command {
     	//Robot.drivetrain.Ddrive.arcadeDrive((Robot.oi.getYaxis()*speed), (Robot.oi.getYaxis()*turn));
     	
     	//Primary Drive Method
-    	Robot.drivetrain.drive((Robot.oi.getXaxis()*speed), (Robot.oi.getYaxis()*speed));
+    	Robot.drivetrain.drive((-Robot.oi.getXaxis()*speed), (Robot.oi.getYaxis()*speed * direction));
     }
 
     // Make this return true when this Command no longer needs to run execute()

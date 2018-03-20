@@ -38,11 +38,11 @@ public class StraightDrive extends Command {
     	HeadingError = CurrentHeading - Robot.drivetrain.getAngle();
     	
     	if (HeadingError > .5) {
-    		LeftSpeed = 0.25; //the speed for error correction (drifting) RAISE THIS IF IT DRIFTS
+    		RightSpeed = 0.3; //the speed for error correction (drifting) RAISE THIS IF IT DRIFTS
     	}
     	
     	else if (HeadingError < -.5) {
-    		RightSpeed = 0.25; //Error correction for right side  RAISE THIS IF IT DRIFTS
+    		LeftSpeed = 0.3; //Error correction for right side  RAISE THIS IF IT DRIFTS
     	}
     	
     	else {

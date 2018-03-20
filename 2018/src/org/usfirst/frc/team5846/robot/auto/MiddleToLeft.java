@@ -1,20 +1,23 @@
 package org.usfirst.frc.team5846.robot.auto;
 
-import org.usfirst.frc.team5846.robot.commands.DriveAuto;
-import org.usfirst.frc.team5846.robot.commands.PIDdrive;
+import org.usfirst.frc.team5846.robot.commands.IntakeAuto;
+import org.usfirst.frc.team5846.robot.commands.LiftAuto;
 import org.usfirst.frc.team5846.robot.commands.StraightDrive;
+import org.usfirst.frc.team5846.robot.commands.TurnAngle;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class Baseline extends CommandGroup {
+public class MiddleToLeft extends CommandGroup {
 
-    public Baseline() {
-    	
-    	//addSequential(new StraightDrive(130));
-    	addSequential(new StraightDrive(150));
+    public MiddleToLeft() {
+    	addSequential(new StraightDrive(40));
+    	addSequential(new TurnAngle(90, 4));
+    	addSequential(new StraightDrive(80));
+    	addSequential(new LiftAuto(.5));
+    	addSequential(new IntakeAuto(4));
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

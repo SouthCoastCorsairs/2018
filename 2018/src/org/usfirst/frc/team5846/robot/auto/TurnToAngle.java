@@ -11,7 +11,7 @@ public class TurnToAngle extends CommandGroup {
 
     public TurnToAngle() {
     	
-    	addSequential(new TurnAngle(90, 5));
+    	addSequential(new TurnAngle(-90, 5));
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

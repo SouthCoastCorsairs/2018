@@ -5,6 +5,7 @@ import org.usfirst.frc.team5846.robot.auto.AroundFromLeft;
 import org.usfirst.frc.team5846.robot.auto.AroundFromRight;
 import org.usfirst.frc.team5846.robot.auto.Baseline;
 import org.usfirst.frc.team5846.robot.auto.DoNothing;
+import org.usfirst.frc.team5846.robot.auto.MiddleToLeft;
 import org.usfirst.frc.team5846.robot.auto.StraightDrop;
 import org.usfirst.frc.team5846.robot.auto.StraightLeftDrop;
 import org.usfirst.frc.team5846.robot.auto.StraightRightDrop;
@@ -15,6 +16,7 @@ import org.usfirst.frc.team5846.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team5846.robot.subsystems.Navx;
 import org.usfirst.frc.team5846.robot.subsystems.Pneumatics;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -45,6 +47,13 @@ public class Robot extends IterativeRobot {
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
+	SendableChooser side;
+	
+	 private enum Sides {
+	        Left,
+	        Right,
+	        Middle,
+	    }
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -53,20 +62,28 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
+		
+		side = new SendableChooser();
 		//chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		
+		side.addDefault("Middle", Sides.Middle);
+		side.addObject("Right", Sides.Right);
+		side.addObject("Left", Sides.Left);
 		
 		chooser.addObject("Straight Drop", new StraightDrop());
 		chooser.addObject("Foward Left Drop", new StraightLeftDrop());
 		chooser.addObject("Foward Right Drop", new StraightRightDrop());
-		chooser.addObject("Baseline", new Baseline());
+		chooser.addDefault("Baseline", new Baseline());
 		chooser.addObject("Do Nothing", new DoNothing());
 		chooser.addObject("Right Side to Left Switch", new AroundFromRight());
 		chooser.addObject("Left Side to Right Switch", new AroundFromLeft());
-		chooser.addDefault("Turn to Angle", new TurnToAngle());
+		chooser.addObject("Turn to Angle", new TurnToAngle());
+		chooser.addObject("Middle to Left", new MiddleToLeft());
 		
 		SmartDashboard.putData("Auto mode", chooser);
+		SmartDashboard.putData("Side", side);
+		CameraServer.getInstance().startAutomaticCapture();
 	}
 
 	/**
@@ -106,6 +123,31 @@ public class Robot extends IterativeRobot {
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		gameStation = DriverStation.getInstance().getLocation();
 		
+		switch (gameData) {
+		case "L":
+			if (side.getSelected().equals(Sides.Middle)) {
+				chooser.getSelected().equals(new MiddleToLeft());
+			}
+			if (side.getSelected().equals(Sides.Right)) {
+				chooser.getSelected().equals(new AroundFromRight());
+			}
+			if (side.getSelected().equals(Sides.Left)) {
+				chooser.getSelected().equals(new StraightRightDrop());
+			}
+			break;
+		case "R":
+			if (side.getSelected().equals(Sides.Middle)) {
+				chooser.getSelected().equals(new StraightDrop());
+			}
+			if (side.getSelected().equals(Sides.Right)) {
+				chooser.getSelected().equals(new StraightLeftDrop());
+			}
+			if (side.getSelected().equals(Sides.Left)) {
+				chooser.getSelected().equals(new AroundFromLeft());
+			}
+			break;
+			
+		}
 		
 		//Auto chooser based on randomized lights and station number
 		//if (first letter) and (station number) = true, then run corresponding auto
@@ -139,6 +181,8 @@ public class Robot extends IterativeRobot {
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null)
 			autonomousCommand.start();
+		
+		SmartDashboard.putString("Chosen Auto", autonomousCommand.toString());
 	}
 
 	/**
@@ -191,6 +235,7 @@ public class Robot extends IterativeRobot {
 		
 		
 		Scheduler.getInstance().run();
+		
 	}
 
 	/**

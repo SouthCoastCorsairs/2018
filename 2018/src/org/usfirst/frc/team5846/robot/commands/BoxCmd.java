@@ -54,7 +54,7 @@ public class BoxCmd extends Command {
     	
     	Robot.box.lift((Robot.oi.getY2axis()*scale));
     	
-    	Robot.box.intake((Robot.oi.getRY2()*scale1));
+    	Robot.box.intake((-Robot.oi.getRY2()*scale1));
     	//SmartDashboard.putNumber("lift time", t_currentt);
     }
 

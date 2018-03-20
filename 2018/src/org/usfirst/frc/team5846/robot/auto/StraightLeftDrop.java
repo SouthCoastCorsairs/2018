@@ -4,6 +4,7 @@ import org.usfirst.frc.team5846.robot.commands.IntakeAuto;
 import org.usfirst.frc.team5846.robot.commands.LiftAuto;
 import org.usfirst.frc.team5846.robot.commands.PIDdrive;
 import org.usfirst.frc.team5846.robot.commands.Recenter;
+import org.usfirst.frc.team5846.robot.commands.StraightDrive;
 import org.usfirst.frc.team5846.robot.commands.TurnAngle;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -16,12 +17,12 @@ public class StraightLeftDrop extends CommandGroup {
 
     public StraightLeftDrop() {
     	
-    	addSequential(new PIDdrive(150));
+    	addSequential(new StraightDrive(150));
     	addSequential(new WaitCommand(1));
     	addSequential(new Recenter(3));
-    	addSequential(new TurnAngle(-90, 4));
+    	addSequential(new TurnAngle(90, 4));
     	addSequential(new WaitCommand(1));
-    	addSequential(new PIDdrive(30));
+    	addSequential(new StraightDrive(30));
     	addSequential(new LiftAuto(.5));
     	addSequential(new IntakeAuto(3));
         // Add Commands here:
