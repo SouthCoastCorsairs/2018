@@ -40,14 +40,14 @@ public class BoxHolder extends Subsystem {
     
     public void lift(double speed) {
     	//timer.start();
-    	lift1.set(speed);
+    	lift1.set(-speed);
     	lift2.set(speed);
     	//double t_currentt = timer.get();
     }
     
     public void intake(double speed) {
 //    	if (Robot.oi.getA2()) {
-    		intakeLeft.set(speed);  // negative sign removed
+    		intakeLeft.set(-speed);  // negative sign removed
     		intakeRight.set(speed);
  //   	}
     	

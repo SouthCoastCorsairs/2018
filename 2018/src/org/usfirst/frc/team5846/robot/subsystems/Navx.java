@@ -15,9 +15,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class Navx extends Subsystem {
-	static final double kP = .02;
-	static final double kI = 0;
-	static final double kD = 0;
+	static final double kP = .03;
+	static final double kI = .0015;
+	static final double kD = .5;
 	static final double kF = 0;
 	
 	double rotateToAngleRate;
@@ -30,7 +30,7 @@ public class Navx extends Subsystem {
 	double currentRotationRate;
 	//Ultrasonic us = new Ultrasonic(null, null);
 	
-	static final double kToleranceDegrees = 0.5f;
+	static final double kToleranceDegrees = 2.0f;
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -43,7 +43,7 @@ public class Navx extends Subsystem {
     	isPIDInitialized = true;
     	turnController = new PIDController(kP, kI, kD, kF, ahrs, output);
         turnController.setInputRange(-180.0f,  180.0f);
-        turnController.setOutputRange(-.35, .35);
+        turnController.setOutputRange(-.25, .25);
         turnController.setAbsoluteTolerance(kToleranceDegrees);
         turnController.setContinuous(true);
         turnController.enable();

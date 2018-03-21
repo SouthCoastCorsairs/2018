@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class BoxCmd extends Command {
 	//Scale of the Lift Speed
-	private double scale = .75;
-	private double scale1 =.75;
+	private double scale = .5;
+	private double scale1 = 1;
 	private double t_currentt=0;
 	private double loop1=0;
 	Timer timer = new Timer();
