@@ -11,7 +11,6 @@ import org.usfirst.frc.team5846.robot.auto.StraightLeftDrop;
 import org.usfirst.frc.team5846.robot.auto.StraightRightDrop;
 import org.usfirst.frc.team5846.robot.auto.TurnToAngle;
 import org.usfirst.frc.team5846.robot.subsystems.BoxHolder;
-import org.usfirst.frc.team5846.robot.subsystems.Climb;
 import org.usfirst.frc.team5846.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team5846.robot.subsystems.Navx;
 import org.usfirst.frc.team5846.robot.subsystems.Pneumatics;
@@ -43,7 +42,6 @@ public class Robot extends IterativeRobot {
 	public static final Pneumatics pt = new Pneumatics();
 	public static final BoxHolder box = new BoxHolder();
 	public static final Navx navx = new Navx();
-	public static final Climb climb = new Climb();
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -53,6 +51,7 @@ public class Robot extends IterativeRobot {
 	        Left,
 	        Right,
 	        Middle,
+	        None,
 	    }
 
 	/**
@@ -67,9 +66,10 @@ public class Robot extends IterativeRobot {
 		//chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		
-		side.addDefault("Middle", Sides.Middle);
+		side.addObject("Middle", Sides.Middle);
 		side.addObject("Right", Sides.Right);
 		side.addObject("Left", Sides.Left);
+		side.addDefault("None", Sides.None);
 		
 		chooser.addObject("Straight Drop", new StraightDrop());
 		chooser.addObject("Foward Left Drop", new StraightLeftDrop());
@@ -123,27 +123,33 @@ public class Robot extends IterativeRobot {
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		gameStation = DriverStation.getInstance().getLocation();
 		
-		switch (gameData) {
-		case "L":
+		switch (gameData.charAt(0)) {
+		case 'L':
 			if (side.getSelected().equals(Sides.Middle)) {
-				chooser.getSelected().equals(new MiddleToLeft());
+				autonomousCommand = (new MiddleToLeft());
 			}
 			if (side.getSelected().equals(Sides.Right)) {
-				chooser.getSelected().equals(new AroundFromRight());
+				autonomousCommand = (new AroundFromRight());
 			}
 			if (side.getSelected().equals(Sides.Left)) {
-				chooser.getSelected().equals(new StraightRightDrop());
+				autonomousCommand = (new StraightRightDrop());
+			}
+			if (side.getSelected().equals(Sides.None)) {
+				autonomousCommand = chooser.getSelected();
 			}
 			break;
-		case "R":
+		case 'R':
 			if (side.getSelected().equals(Sides.Middle)) {
-				chooser.getSelected().equals(new StraightDrop());
+				autonomousCommand = (new StraightDrop());
 			}
 			if (side.getSelected().equals(Sides.Right)) {
-				chooser.getSelected().equals(new StraightLeftDrop());
+				autonomousCommand = (new StraightLeftDrop());
 			}
 			if (side.getSelected().equals(Sides.Left)) {
-				chooser.getSelected().equals(new AroundFromLeft());
+				autonomousCommand = (new AroundFromLeft());
+			}
+			if (side.getSelected().equals(Sides.None)) {
+				autonomousCommand = chooser.getSelected();
 			}
 			break;
 			
@@ -232,6 +238,7 @@ public class Robot extends IterativeRobot {
 		//SmartDashboard.putNumber("Right Encoder (cm)", (Robot.drivetrain.getRightDistance()*31.4)/360);
 		SmartDashboard.putNumber("Right Encoder (in)", Robot.drivetrain.RightIN());
 		SmartDashboard.putNumber("Left Encoder (in)", Robot.drivetrain.LeftIN());
+		SmartDashboard.putData("Turn PID", Robot.navx.turnController);
 		
 		
 		Scheduler.getInstance().run();

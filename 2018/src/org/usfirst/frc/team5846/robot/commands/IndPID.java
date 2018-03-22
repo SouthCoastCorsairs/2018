@@ -6,8 +6,8 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/**
- *
+/** yeah, I tried to do these calculations...
+ *	RIP
  */
 public class IndPID extends Command {
 	private double distance;

@@ -16,13 +16,9 @@ public class AroundFromLeft extends CommandGroup {
     public AroundFromLeft() {
     	
     	addSequential(new StraightDrive(200));
-    	addSequential(new WaitCommand(1));
     	addSequential(new TurnAngle(-90, 4));
-    	addSequential(new WaitCommand(1));
     	addSequential(new StraightDrive(200));
-    	addSequential(new WaitCommand(1));
     	addSequential(new TurnAngle(-90, 4));
-    	addSequential(new WaitCommand(1));
     	addSequential(new StraightDrive(30));
     	addSequential(new LiftAuto(.5));
     	addSequential(new IntakeAuto(3));

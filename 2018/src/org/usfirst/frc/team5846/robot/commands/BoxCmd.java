@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5846.robot.commands;
 
 import org.usfirst.frc.team5846.robot.Robot;
+import org.usfirst.frc.team5846.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -11,8 +12,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class BoxCmd extends Command {
 	//Scale of the Lift Speed
-	private double scale = .5;
-	private double scale1 = 1;
+	private double scale = RobotMap.LiftSpeed;
+	private double scale1 = RobotMap.IntakeSpeed;
 	private double t_currentt=0;
 	private double loop1=0;
 	Timer timer = new Timer();

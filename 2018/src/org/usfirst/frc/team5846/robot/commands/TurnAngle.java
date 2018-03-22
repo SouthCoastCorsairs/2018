@@ -61,7 +61,7 @@ public class TurnAngle extends Command implements PIDOutput {
 
     // Make this return true when this Command no longer needs to run execute()
     public boolean isFinished() {
-        if (Robot.navx.onTarget() && isTimedOut()) {
+        if (Robot.navx.onTarget() || isTimedOut()) {
             Robot.drivetrain.tank(0, 0);
             Robot.navx.freePID();
             return true;

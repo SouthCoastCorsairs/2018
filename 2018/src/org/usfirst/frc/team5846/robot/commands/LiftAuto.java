@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5846.robot.commands;
 
 import org.usfirst.frc.team5846.robot.Robot;
+import org.usfirst.frc.team5846.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -28,7 +29,7 @@ public class LiftAuto extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	Robot.box.lift(.6);
+    	Robot.box.lift(RobotMap.LiftSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
