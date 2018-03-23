@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team5846.robot;
 
+import org.usfirst.frc.team5846.robot.Robot.Sides;
 import org.usfirst.frc.team5846.robot.auto.AroundFromLeft;
 import org.usfirst.frc.team5846.robot.auto.AroundFromRight;
 import org.usfirst.frc.team5846.robot.auto.Baseline;
@@ -45,9 +46,9 @@ public class Robot extends IterativeRobot {
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
-	SendableChooser side;
+	SendableChooser<Sides> side;
 	
-	 private enum Sides {
+	 public enum Sides {
 	        Left,
 	        Right,
 	        Middle,
@@ -62,7 +63,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		
-		side = new SendableChooser();
+		side = new SendableChooser<Sides>();
 		//chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		
@@ -238,7 +239,7 @@ public class Robot extends IterativeRobot {
 		//SmartDashboard.putNumber("Right Encoder (cm)", (Robot.drivetrain.getRightDistance()*31.4)/360);
 		SmartDashboard.putNumber("Right Encoder (in)", Robot.drivetrain.RightIN());
 		SmartDashboard.putNumber("Left Encoder (in)", Robot.drivetrain.LeftIN());
-		SmartDashboard.putData("Turn PID", Robot.navx.turnController);
+		//SmartDashboard.putData("Turn PID", Robot.navx.turnController);
 		
 		
 		Scheduler.getInstance().run();

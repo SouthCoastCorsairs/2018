@@ -17,7 +17,7 @@ public class StraightDrop extends CommandGroup {
     	//addSequential(new DriveToSurface(150));
     	//addSequential(new PIDdrive(140));
     	//addSequential(new LiftAuto(.5));
-    	addSequential(new StraightDrive(130));
+    	addSequential(new StraightDrive(125), 6);
     	addSequential(new LiftAuto(.5));
     	addSequential(new IntakeAuto(1));
         // Add Commands here:
