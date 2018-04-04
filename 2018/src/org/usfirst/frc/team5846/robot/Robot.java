@@ -13,8 +13,8 @@ import org.usfirst.frc.team5846.robot.auto.StraightRightDrop;
 import org.usfirst.frc.team5846.robot.auto.TurnToAngle;
 import org.usfirst.frc.team5846.robot.subsystems.BoxHolder;
 import org.usfirst.frc.team5846.robot.subsystems.Drivetrain;
-import org.usfirst.frc.team5846.robot.subsystems.Navx;
 import org.usfirst.frc.team5846.robot.subsystems.Pneumatics;
+import org.usfirst.frc.team5846.util.Navx;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -84,7 +84,9 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putData("Side", side);
-		CameraServer.getInstance().startAutomaticCapture();
+
+		CameraServer.getInstance().startAutomaticCapture(0);
+		CameraServer.getInstance().startAutomaticCapture(1);
 	}
 
 	/**
@@ -130,7 +132,7 @@ public class Robot extends IterativeRobot {
 				autonomousCommand = (new MiddleToLeft());
 			}
 			if (side.getSelected().equals(Sides.Right)) {
-				autonomousCommand = (new AroundFromRight());
+				autonomousCommand = (new Baseline());
 			}
 			if (side.getSelected().equals(Sides.Left)) {
 				autonomousCommand = (new StraightRightDrop());
@@ -147,7 +149,7 @@ public class Robot extends IterativeRobot {
 				autonomousCommand = (new StraightLeftDrop());
 			}
 			if (side.getSelected().equals(Sides.Left)) {
-				autonomousCommand = (new AroundFromLeft());
+				autonomousCommand = (new Baseline());
 			}
 			if (side.getSelected().equals(Sides.None)) {
 				autonomousCommand = chooser.getSelected();
@@ -209,7 +211,6 @@ public class Robot extends IterativeRobot {
 		//SmartDashboard.putNumber("Right Encoder (cm)", (Robot.drivetrain.getRightDistance()*31.4)/360);
 		SmartDashboard.putNumber("Right Encoder (cm)", Robot.drivetrain.RightIN());
 		SmartDashboard.putNumber("Left Encoder (cm)", Robot.drivetrain.LeftIN());
-		
 	}
 
 	@Override
@@ -239,7 +240,7 @@ public class Robot extends IterativeRobot {
 		//SmartDashboard.putNumber("Right Encoder (cm)", (Robot.drivetrain.getRightDistance()*31.4)/360);
 		SmartDashboard.putNumber("Right Encoder (in)", Robot.drivetrain.RightIN());
 		SmartDashboard.putNumber("Left Encoder (in)", Robot.drivetrain.LeftIN());
-		//SmartDashboard.putData("Turn PID", Robot.navx.turnController);
+		SmartDashboard.putData("Turn PID", Robot.navx.turnController);
 		
 		
 		Scheduler.getInstance().run();

@@ -1,5 +1,7 @@
 package org.usfirst.frc.team5846.robot.subsystems;
 
+import java.io.File;
+
 import org.usfirst.frc.team5846.robot.Robot;
 import org.usfirst.frc.team5846.robot.RobotMap;
 import org.usfirst.frc.team5846.robot.commands.Drive;
@@ -18,6 +20,12 @@ import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import jaci.pathfinder.Pathfinder;
+import jaci.pathfinder.Trajectory;
+import jaci.pathfinder.Waypoint;
+import jaci.pathfinder.followers.EncoderFollower;
+import jaci.pathfinder.modifiers.TankModifier;
+
 import com.ctre.phoenix.motorcontrol.can.*;
 
 /**
@@ -53,12 +61,43 @@ public class Drivetrain extends Subsystem {
 	public static final double KI = .0015;
 	public static final double KD = 0;
 	public static final double KF = 0;
+	
+	public static final double mv = 0;
+	public static final double ma = 0;
+	public static final double mj = 0;
+	public static final double dt = 0;
+	
+	public static final double wheel_base = 0;
 
     public void initDefaultCommand() {
     	setDefaultCommand(new Drive());
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
+    
+//    public Drivetrain() {
+//    	frontLeft.configPeakOutputForward(1, 0);
+//    	frontLeft.configPeakOutputReverse(-1, 0);
+//    	frontLeft.configNominalOutputForward(0, 0);
+//    	frontLeft.configNominalOutputReverse(0, 0);
+//    	
+//    	backLeft.configPeakOutputForward(1, 0);
+//    	backLeft.configPeakOutputReverse(-1, 0);
+//    	backLeft.configNominalOutputForward(0, 0);
+//    	backLeft.configNominalOutputReverse(0, 0);
+//    	
+//    	frontRight.configPeakOutputForward(1, 0);
+//    	frontRight.configPeakOutputReverse(-1, 0);
+//    	frontRight.configNominalOutputForward(0, 0);
+//    	frontRight.configNominalOutputReverse(0, 0);
+//    	
+//    	backRight.configPeakOutputForward(1, 0);
+//    	backRight.configPeakOutputReverse(-1, 0);
+//    	backRight.configNominalOutputForward(0, 0);
+//    	backRight.configNominalOutputReverse(0, 0);
+    	
+    	//frontLeft.configSelectedFeedbackSensor(FeedbackDevice., arg1, arg2)
+   // }
     
     //All Left Side Drivetrain Motors 
     SpeedControllerGroup Left = new SpeedControllerGroup(frontLeft, backLeft);
@@ -77,6 +116,32 @@ public class Drivetrain extends Subsystem {
     	Right.set(forward + turn);
     }
     
+//    public EncoderFollower[] pathSetup(Waypoint[] path) {
+//    	EncoderFollower left = new EncoderFollower();
+//    	EncoderFollower right = new EncoderFollower();
+//    	
+//    	Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_QUINTIC, 
+//    			Trajectory.Config.SAMPLES_HIGH, 
+//    			dt, mv, ma, mj);
+//    	
+//    	String pathHash = String.valueOf(path.hashCode());
+//    	
+//    	SmartDashboard.putString("Path Hash", pathHash);
+//    	
+//    	Trajectory trajectory = Pathfinder.generate(path, config);
+//    
+//    	TankModifier modifier = new TankModifier(trajectory).modify(wheel_base);
+//    	
+//    	left = new EncoderFollower(modifier.getLeftTrajectory());
+//    	right = new EncoderFollower(modifier.getRightTrajectory());
+//    	
+//    	//left.configureEncoder(initial_position, ticks_per_revolution, wheel_diameter);
+//    	
+//    	return new EncoderFollower[] {
+//    			left,
+//    			right,
+//    	};
+   // }
     public void initPID(PIDOutput output) {
     	isPIDInitialized = true;
     	drivePID = new PIDController(KP, KI, KD, KF, ahrs, output);
@@ -214,5 +279,6 @@ public class Drivetrain extends Subsystem {
     public void stopTank() {
     	this.tank(0, 0);
     }
+    
 }
 

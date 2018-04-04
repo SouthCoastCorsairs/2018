@@ -1,4 +1,4 @@
-package org.usfirst.frc.team5846.robot.subsystems;
+package org.usfirst.frc.team5846.util;
 
 import org.usfirst.frc.team5846.robot.Robot;
 import org.usfirst.frc.team5846.robot.commands.TurnAngle;
@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class Navx extends Subsystem {
-	static final double kP = 0.002; //0.002
+	static final double kP = 0.00125; //0.0012
 	static final double kI = .00001; //0.0001
 	static final double kD = 0.015; //0.015
 	static final double kF = 0;
@@ -26,11 +26,12 @@ public class Navx extends Subsystem {
 	private boolean isPIDInitialized;
 	
 	public final AHRS ahrs = new AHRS(SPI.Port.kMXP);
-	public PIDController turnController;
+	
+	public SpeedOutput turnSpeed = new SpeedOutput();
 	double currentRotationRate;
 	//Ultrasonic us = new Ultrasonic(null, null);
 	
-	static final double kToleranceDegrees = 5.0f;
+	static final double kToleranceDegrees = 3.0f;
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -39,16 +40,18 @@ public class Navx extends Subsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
-    public void initPID(PIDOutput output) {
-    	isPIDInitialized = true;
-    	turnController = new PIDController(kP, kI, kD, kF, ahrs, output);
-        turnController.setInputRange(-180.0f,  180.0f);
-        turnController.setOutputRange(-0.3, 0.3);
-        turnController.setPercentTolerance(kToleranceDegrees);
-        turnController.setContinuous(true);
-        turnController.enable();
-    }
+//    public void initPID(PIDOutput output) {
+//    	isPIDInitialized = true;
+//    	turnController = new PIDController(kP, kI, kD, kF, ahrs, output);
+//        turnController.setInputRange(-180.0f,  180.0f);
+//        turnController.setOutputRange(-0.4, 0.4);
+//        turnController.setPercentTolerance(kToleranceDegrees);
+//        turnController.setContinuous(true);
+//        turnController.enable();
+//    }
+//    
     
+    public PIDController turnController = new PIDController(kP, kI, kD, ahrs, turnSpeed);
     public boolean onTarget() {
         return turnController.onTarget();
     }

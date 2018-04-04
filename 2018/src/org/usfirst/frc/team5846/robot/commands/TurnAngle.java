@@ -13,18 +13,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class TurnAngle extends Command implements PIDOutput {
+public class TurnAngle extends Command {
 	private float angle;
 	private double time;
 	private double pidOutput;
 	
 	
 
-    public TurnAngle(float angle, double seconds) {
+    public TurnAngle(float angle) {
     	requires(Robot.drivetrain);
     	requires(Robot.navx);
     	this.angle = angle;
-    	time = seconds;
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -32,28 +31,35 @@ public class TurnAngle extends Command implements PIDOutput {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.drivetrain.ResetGyro();
+    	Robot.navx.turnController.setInputRange(-180.0f, 180.0f);
+    	Robot.navx.turnController.setContinuous(true);
+    	Robot.navx.turnController.setOutputRange(-.5, .5);
+    	Robot.navx.turnController.setSetpoint(angle);
+    	Robot.navx.turnController.enable();
     	
-    	Robot.navx.initPID(this);
-    	Robot.navx.pidSetPoint(angle);
+//    	Robot.navx.initPID(this);
+//    	Robot.navx.pidSetPoint(angle);
     	
-    	setTimeout(time);
     	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	
+    	double speed = Robot.navx.turnSpeed.getSpeed();
+    	Robot.drivetrain.tank(speed, speed);
     
     	
-    	Robot.drivetrain.tank(pidOutput, pidOutput);
+    	//Robot.drivetrain.tank(pidOutput, pidOutput);
     	
     	//Right is Positive, Left is Negative
     	//Turn to Corresponding Angle
 //    	if (angle > 0) {
-//    		Robot.drivetrain.tank(.2, .2); //Forward Left Backward Right 
+//    		Robot.drivetrain.tank(.25, .25); //Forward Left Backward Right 
 //    	}
 //    	
 //    	if (angle < 0) {
-//    		Robot.drivetrain.tank(-.2, -.2); //Backward Left Forward Right
+//    		Robot.drivetrain.tank(-.25, -.25); //Backward Left Forward Right
 //    	}
     	
     	//SmartDashboard.putNumber("PIDOutput (angle)", pidOutput);
@@ -61,18 +67,25 @@ public class TurnAngle extends Command implements PIDOutput {
 
     // Make this return true when this Command no longer needs to run execute()
     public boolean isFinished() {
-        if (Robot.navx.onTarget() || isTimedOut()) {
-            Robot.drivetrain.tank(0, 0);
-            Robot.navx.freePID();
-            return true;
-        } else {
-            return false;
-        }
-    }
+    	 return !(Robot.navx.turnController.isEnabled());
+//        if (Robot.navx.onTarget() || isTimedOut()) {
+//            Robot.drivetrain.tank(0, 0);
+//            Robot.navx.freePID();
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    	if (Robot.drivetrain.isAtAngle(angle) || isTimedOut()) {
+//    		Robot.drivetrain.stopTank();
+//    		return true;
+//    		
+//    	}
+//    	else {
+//    		return false;
+    	}
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.drivetrain.stopTank();
     }
 
     // Called when another command which requires one or more of the same
@@ -81,10 +94,4 @@ public class TurnAngle extends Command implements PIDOutput {
     	this.end();
     }
 
-	@Override
-	public void pidWrite(double output) {
-		pidOutput = output;
-		// TODO Auto-generated method stub
-		
-	}
 }

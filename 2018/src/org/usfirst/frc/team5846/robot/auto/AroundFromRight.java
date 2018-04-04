@@ -16,13 +16,13 @@ public class AroundFromRight extends CommandGroup {
 
     public AroundFromRight() {
     	
-    	addSequential(new StraightDrive(200));
-    	addSequential(new TurnAngle(90, 4));
-    	addSequential(new StraightDrive(200));
-    	addSequential(new TurnAngle(90, 4));
-    	addSequential(new StraightDrive(30));
+    	addSequential(new StraightDrive(210), 10);
+    	addSequential(new TurnAngle(90), 4);
+    	addSequential(new StraightDrive(150), 8);
+    	addSequential(new TurnAngle(90), 4);
+    	addSequential(new StraightDrive(30), 3);
     	addSequential(new LiftAuto(.5));
-    	addSequential(new IntakeAuto(3));
+    	addSequential(new IntakeAuto(.5));
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

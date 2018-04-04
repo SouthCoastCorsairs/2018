@@ -14,10 +14,12 @@ public class MiddleToLeft extends CommandGroup {
 
     public MiddleToLeft() {
     	addSequential(new StraightDrive(40));
-    	addSequential(new TurnAngle(90, 4));
-    	addSequential(new StraightDrive(80));
-    	addSequential(new LiftAuto(.5));
-    	addSequential(new IntakeAuto(4));
+    	addSequential(new TurnAngle(90), 4);
+    	addSequential(new StraightDrive(95));
+    	addSequential(new TurnAngle(-90), 4);
+    	addSequential(new StraightDrive(80), 2);
+    	addSequential(new LiftAuto(.25));
+    	addSequential(new IntakeAuto(.5));
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
