@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5846.robot.commands;
 
 import org.usfirst.frc.team5846.robot.Robot;
+import org.usfirst.frc.team5846.util.SpeedOutput;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -17,6 +18,7 @@ public class TurnAngle extends Command {
 	private float angle;
 	private double time;
 	private double pidOutput;
+	private SpeedOutput test;
 	
 	
 
@@ -31,11 +33,15 @@ public class TurnAngle extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.drivetrain.ResetGyro();
-    	Robot.navx.turnController.setInputRange(-180.0f, 180.0f);
-    	Robot.navx.turnController.setContinuous(true);
-    	Robot.navx.turnController.setOutputRange(-.5, .5);
-    	Robot.navx.turnController.setSetpoint(angle);
-    	Robot.navx.turnController.enable();
+    	
+    	Robot.drivetrain.turnTestInit(angle);
+    //	Robot.drivetrain.initPID(test);
+    	
+//    	Robot.navx.turnController.setInputRange(-180.0f, 180.0f);
+//    	Robot.navx.turnController.setContinuous(true);
+//    	Robot.navx.turnController.setOutputRange(-1, 1);
+//    	Robot.navx.turnController.setSetpoint(angle);
+//    	Robot.navx.turnController.enable();
     	
 //    	Robot.navx.initPID(this);
 //    	Robot.navx.pidSetPoint(angle);
@@ -46,8 +52,10 @@ public class TurnAngle extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	double speed = Robot.navx.turnSpeed.getSpeed();
-    	Robot.drivetrain.tank(speed, speed);
+    	Robot.drivetrain.turnTestExecute();
+    	
+//    	double speed = test.getSpeed(); //Robot.navx.turnSpeed.getSpeed();
+//    	Robot.drivetrain.tank(speed, speed);
     
     	
     	//Robot.drivetrain.tank(pidOutput, pidOutput);
@@ -67,7 +75,7 @@ public class TurnAngle extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     public boolean isFinished() {
-    	 return !(Robot.navx.turnController.isEnabled());
+    	 //return !(Robot.navx.turnController.isEnabled());
 //        if (Robot.navx.onTarget() || isTimedOut()) {
 //            Robot.drivetrain.tank(0, 0);
 //            Robot.navx.freePID();
@@ -82,6 +90,8 @@ public class TurnAngle extends Command {
 //    	}
 //    	else {
 //    		return false;
+    	
+    		return Robot.drivetrain.turnTest.onTarget();
     	}
 
     // Called once after isFinished returns true

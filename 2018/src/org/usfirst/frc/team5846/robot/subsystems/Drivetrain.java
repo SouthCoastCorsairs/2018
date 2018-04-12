@@ -5,6 +5,7 @@ import java.io.File;
 import org.usfirst.frc.team5846.robot.Robot;
 import org.usfirst.frc.team5846.robot.RobotMap;
 import org.usfirst.frc.team5846.robot.commands.Drive;
+import org.usfirst.frc.team5846.util.SpeedOutput;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
@@ -20,11 +21,11 @@ import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import jaci.pathfinder.Pathfinder;
-import jaci.pathfinder.Trajectory;
-import jaci.pathfinder.Waypoint;
-import jaci.pathfinder.followers.EncoderFollower;
-import jaci.pathfinder.modifiers.TankModifier;
+//import jaci.pathfinder.Pathfinder;
+//import jaci.pathfinder.Trajectory;
+//import jaci.pathfinder.Waypoint;
+//import jaci.pathfinder.followers.EncoderFollower;
+//import jaci.pathfinder.modifiers.TankModifier;
 
 import com.ctre.phoenix.motorcontrol.can.*;
 
@@ -57,9 +58,9 @@ public class Drivetrain extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
-	public static final double KP = .03;
-	public static final double KI = .0015;
-	public static final double KD = 0;
+	public static final double KP = .000;//.0025;
+	public static final double KI = 0;//.0015;
+	public static final double KD = 0.00;
 	public static final double KF = 0;
 	
 	public static final double mv = 0;
@@ -107,6 +108,26 @@ public class Drivetrain extends Subsystem {
     
     //Alternate Drive Method
     //public DifferentialDrive Ddrive = new DifferentialDrive(Left, Right);
+    
+    public SpeedOutput turnTestOutput = new SpeedOutput();
+    public PIDController turnTest = new PIDController(0.015, 0, 0.05, ahrs, turnTestOutput); //.009
+    
+    public void turnTestInit(double target) {
+    	turnTest.setInputRange(-180,  180);
+    	turnTest.setOutputRange(-1,  1);
+    	turnTest.setAbsoluteTolerance(2);
+    	turnTest.setContinuous(true);
+    	turnTest.setSetpoint(target);
+    	turnTest.enable();
+    }
+    
+    public void turnTestExecute() {
+    	double speed = turnTestOutput.getSpeed() * -1;
+    	tank(speed, speed);
+    	SmartDashboard.putNumber("turn speed", speed);
+    }
+    
+    
     
     //Primary Drive Method
     public void drive(double turn, double forward) {

@@ -3,6 +3,7 @@ package org.usfirst.frc.team5846.robot.auto;
 import org.usfirst.frc.team5846.robot.commands.IntakeAuto;
 import org.usfirst.frc.team5846.robot.commands.LiftAuto;
 import org.usfirst.frc.team5846.robot.commands.StraightDrive;
+import org.usfirst.frc.team5846.robot.commands.TurnAngle;
 import org.usfirst.frc.team5846.robot.commands.RawTurn;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -16,7 +17,7 @@ public class StraightRightDrop extends CommandGroup {
     public StraightRightDrop() {
     	
     	addSequential(new StraightDrive(150), 6);
-    	addSequential(new RawTurn(-90), 4);
+    	addSequential(new TurnAngle(90), 4);
     	addSequential(new StraightDrive(30), 2);
     	addSequential(new LiftAuto(.25));
     	addSequential(new IntakeAuto(.5));
