@@ -6,6 +6,7 @@ import org.usfirst.frc.team5846.robot.auto.AroundFromLeft;
 import org.usfirst.frc.team5846.robot.auto.AroundFromRight;
 import org.usfirst.frc.team5846.robot.auto.Baseline;
 import org.usfirst.frc.team5846.robot.auto.DoNothing;
+import org.usfirst.frc.team5846.robot.auto.DoubleCube;
 import org.usfirst.frc.team5846.robot.auto.MiddleToLeft;
 import org.usfirst.frc.team5846.robot.auto.StraightDrop;
 import org.usfirst.frc.team5846.robot.auto.StraightLeftDrop;
@@ -81,6 +82,7 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Left Side to Right Switch", new AroundFromLeft());
 		chooser.addObject("Turn to Angle", new TurnToAngle());
 		chooser.addObject("Middle to Left", new MiddleToLeft());
+		chooser.addObject("Double Cube", new DoubleCube());
 		
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putData("Side", side);

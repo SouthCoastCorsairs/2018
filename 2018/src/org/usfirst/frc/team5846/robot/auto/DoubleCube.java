@@ -1,26 +1,33 @@
 package org.usfirst.frc.team5846.robot.auto;
 
+import org.usfirst.frc.team5846.robot.commands.DriveAuto;
+import org.usfirst.frc.team5846.robot.commands.RaiseLift;
 import org.usfirst.frc.team5846.robot.commands.IntakeAuto;
+import org.usfirst.frc.team5846.robot.commands.InvertIntake;
 import org.usfirst.frc.team5846.robot.commands.LiftAuto;
 import org.usfirst.frc.team5846.robot.commands.StraightDrive;
 import org.usfirst.frc.team5846.robot.commands.TurnAngle;
-import org.usfirst.frc.team5846.robot.commands.RawTurn;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.WaitCommand;
 
 /**
  *
  */
-public class StraightRightDrop extends CommandGroup {
+public class DoubleCube extends CommandGroup {
 
-    public StraightRightDrop() {
-    	
-    	addSequential(new StraightDrive(150), 6);
-    	addSequential(new TurnAngle(90), 2);
-    	addSequential(new StraightDrive(30), 2);
-    	addSequential(new LiftAuto(.25));
+    public DoubleCube() {
+    	addSequential(new StraightDrive(125), 4); 
+    	addSequential(new LiftAuto(.25)); //SECONDS
     	addSequential(new IntakeAuto(.5));
+    	addSequential(new RaiseLift(.5));
+    	addSequential(new TurnAngle(-90), 2);
+    	addSequential(new LiftAuto(.5)); //SECONDS
+    	addSequential(new StraightDrive(25), 3); //INCHES
+    	addSequential(new InvertIntake(1));
+    	addSequential(new DriveAuto(1.5, true)); //DRIVE BACKWARD IN SECONDS
+    	addSequential(new TurnAngle(90), 2);
+    	addSequential(new LiftAuto(.25)); //SECONDS
+    	addSequential(new IntakeAuto(.5));//SECONDS
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
