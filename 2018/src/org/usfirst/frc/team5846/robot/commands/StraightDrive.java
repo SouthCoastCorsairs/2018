@@ -15,10 +15,12 @@ public class StraightDrive extends Command {
 	private double LeftSpeed;
 	private double RightSpeed;
 	private double HeadingError;
+	private int direction;
 
-    public StraightDrive(double Distance) {
+    public StraightDrive(double Distance, boolean isReversed) {
     	requires(Robot.drivetrain);
     	this.Distance = Distance;
+    	direction = isReversed ? -1 : 1;
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -27,8 +29,8 @@ public class StraightDrive extends Command {
     protected void initialize() {
     	Robot.drivetrain.ResetEncoders();
     	Robot.drivetrain.ahrs.reset();
-    	LeftSpeed = 0.3; //Speed of the left side
-    	RightSpeed = 0.3; //Speed of the right side
+    	LeftSpeed = 0.6 * direction; //Speed of the left side
+    	RightSpeed = 0.6 * direction; //Speed of the right side
     	CurrentHeading = Robot.drivetrain.getAngle();
     }
 
@@ -38,15 +40,15 @@ public class StraightDrive extends Command {
     	HeadingError = CurrentHeading - Robot.drivetrain.getAngle();
     	
     	if (HeadingError > .5) {
-    		RightSpeed = 0.4; //the speed for error correction (drifting) RAISE THIS IF IT DRIFTS
+    		RightSpeed = 0.8 * direction; //the speed for error correction (drifting) RAISE THIS IF IT DRIFTS
     	}
     	
     	else if (HeadingError < -.5) {
-    		LeftSpeed = 0.4; //Error correction for right side  RAISE THIS IF IT DRIFTS
+    		LeftSpeed = 0.8 * direction; //Error correction for right side  RAISE THIS IF IT DRIFTS
     	}
     	
     	else {
-    		LeftSpeed = RightSpeed = 0.3; 
+    		LeftSpeed = RightSpeed = 0.6 * direction; 
     	}
     	
     	//if (Robot.drivetrain.driveEncoder.getDistance() > (Distance + 3)) {
@@ -61,7 +63,7 @@ public class StraightDrive extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         //return Robot.drivetrain.isAtDistance(Distance);
-    	return Robot.drivetrain.isAtDistance(Distance); 
+    	return Robot.drivetrain.isAtDistance(Math.abs(Distance)); 
     }
 
     // Called once after isFinished returns true

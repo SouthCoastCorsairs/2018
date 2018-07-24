@@ -18,6 +18,9 @@ public class OI {
 	Joystick driver = new Joystick(0);
 	Joystick manipulator = new Joystick(1);
 	
+	public boolean solo;
+	public boolean tank = false;
+	
 	
 	//Get the Axis of the Joystick
 	//X Axis is 0
@@ -54,6 +57,10 @@ public class OI {
 	
 	public boolean getA2() {
 		return manipulator.getRawButton(1);
+	}
+	
+	public boolean getB2() {
+		return manipulator.getRawButton(2);
 	}
 	
 	public boolean getB() {
@@ -102,7 +109,7 @@ public class OI {
 	
 	//Triggers, Which Return as an Axis
 	public double getLT() {
-		return manipulator.getRawAxis(2);
+		return driver.getRawAxis(2);
 	}
 	
 	public double getLT2() {
@@ -110,7 +117,7 @@ public class OI {
 	}
 	
 	public double getRT() {
-		return manipulator.getRawAxis(3);
+		return driver.getRawAxis(3);
 	}
 	
 	public double getRT2() {

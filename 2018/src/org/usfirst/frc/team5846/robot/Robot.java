@@ -48,6 +48,7 @@ public class Robot extends IterativeRobot {
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	SendableChooser<Sides> side;
+	SendableChooser<Controls> control;
 	
 	 public enum Sides {
 	        Left,
@@ -55,6 +56,12 @@ public class Robot extends IterativeRobot {
 	        Middle,
 	        None,
 	    }
+	 
+	 public enum Controls {
+		 	Solo,
+		 	Duo,
+		 	Tank,
+	 }
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -65,8 +72,12 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		
 		side = new SendableChooser<Sides>();
+		control = new SendableChooser<Controls>();
 		//chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
+		
+//		control.addDefault("Normal", Controls.Duo);
+//		control.addObject("Solo Control", Controls.Solo);
 		
 		side.addObject("Middle", Sides.Middle);
 		side.addObject("Right", Sides.Right);
@@ -86,6 +97,9 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putData("Side", side);
+		SmartDashboard.putData("Control System", control);
+		
+		
 
 		CameraServer.getInstance().startAutomaticCapture(0);
 		CameraServer.getInstance().startAutomaticCapture(1);
@@ -157,6 +171,8 @@ public class Robot extends IterativeRobot {
 				autonomousCommand = chooser.getSelected();
 			}
 			break;
+			
+			
 			
 		}
 		
@@ -231,6 +247,20 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		if (control.getSelected().equals(Controls.Duo)) {
+			Robot.oi.solo = false;
+			Robot.oi.tank = false;
+		}
+		
+		if (control.getSelected().equals(Controls.Solo)) {
+			Robot.oi.solo = true;
+			Robot.oi.tank = false;
+		}
+		
+		if (control.getSelected().equals(Controls.Tank)) {
+			Robot.oi.tank = true;
+			Robot.oi.solo = false;
+		}
 		//Printing stuff to SmartDashboard during teleop
 		SmartDashboard.putNumber("Angle", Robot.drivetrain.getAngle());
 		SmartDashboard.putNumber("Left Distance", Robot.drivetrain.getLeftDistance());
@@ -243,6 +273,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Right Encoder (in)", Robot.drivetrain.RightIN());
 		SmartDashboard.putNumber("Left Encoder (in)", Robot.drivetrain.LeftIN());
 		SmartDashboard.putData("Turn PID", Robot.navx.turnController);
+		
+		SmartDashboard.putBoolean("Solo", Robot.oi.solo);
 		
 		
 		Scheduler.getInstance().run();

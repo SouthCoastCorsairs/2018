@@ -1,13 +1,10 @@
 package org.usfirst.frc.team5846.robot.subsystems;
 
-import java.io.File;
-
-import org.usfirst.frc.team5846.robot.Robot;
 import org.usfirst.frc.team5846.robot.RobotMap;
 import org.usfirst.frc.team5846.robot.commands.Drive;
 import org.usfirst.frc.team5846.util.SpeedOutput;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Encoder;
@@ -15,19 +12,13 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.Ultrasonic;
-import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import jaci.pathfinder.Pathfinder;
 //import jaci.pathfinder.Trajectory;
 //import jaci.pathfinder.Waypoint;
 //import jaci.pathfinder.followers.EncoderFollower;
 //import jaci.pathfinder.modifiers.TankModifier;
-
-import com.ctre.phoenix.motorcontrol.can.*;
 
 /**
  *

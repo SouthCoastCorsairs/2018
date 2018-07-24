@@ -14,7 +14,7 @@ public class Baseline extends CommandGroup {
     public Baseline() {
     	
     	//addSequential(new StraightDrive(130));
-    	addSequential(new StraightDrive(150));
+    	addSequential(new StraightDrive(150, false));
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

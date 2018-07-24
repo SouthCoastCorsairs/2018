@@ -14,13 +14,14 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class MiddleToLeft extends CommandGroup {
 
     public MiddleToLeft() {
-    	addSequential(new StraightDrive(40));
+    	addSequential(new StraightDrive(30, false));
     	addSequential(new TurnAngle(-90), 2);
-    	addSequential(new StraightDrive(95));
+    	addSequential(new StraightDrive(85, false));
     	addSequential(new TurnAngle(90), 2);
-    	addSequential(new StraightDrive(80), 2);
+    	addSequential(new StraightDrive(90, false), 1.5);
     	addSequential(new LiftAuto(.25));
     	addSequential(new IntakeAuto(.5));
+    	
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

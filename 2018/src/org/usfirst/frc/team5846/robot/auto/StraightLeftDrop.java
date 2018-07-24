@@ -17,9 +17,9 @@ public class StraightLeftDrop extends CommandGroup {
 
     public StraightLeftDrop() {
     	
-    	addSequential(new StraightDrive(150), 6);
+    	addSequential(new StraightDrive(130, false), 4);
     	addSequential(new TurnAngle(-90), 2);
-    	addSequential(new StraightDrive(30), 2);
+    	addSequential(new StraightDrive(30, false), 1.5);
     	addSequential(new LiftAuto(.25));
     	addSequential(new IntakeAuto(.5));
         // Add Commands here:

@@ -32,6 +32,13 @@ public class BoxCmd extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
+    	if (Robot.oi.getA2()) {
+    		scale = RobotMap.LiftSpeed;
+    	}
+    	
+    	if (Robot.oi.getB2()) {
+    		scale = .3;
+    	}
 
     	//if((Robot.oi.getY2axis()<-.25))
     	{
@@ -53,9 +60,33 @@ public class BoxCmd extends Command {
     	}
     	//else if ((Robot.oi.getY2axis()>.25)) 
     	
+    	if (!Robot.oi.solo) {
+    	
     	Robot.box.lift((Robot.oi.getY2axis()*scale));
     	
-    	Robot.box.intake((-Robot.oi.getRY2()*scale1));
+    	
+    	
+    	Robot.box.intake((-Robot.oi.getRY2()*scale1)); 
+    	
+    	}
+    	
+    	if (Robot.oi.solo) {
+    		
+    	Robot.box.lift(Robot.oi.getRY() * scale);
+    		
+  
+    	if (Robot.oi.getLB()) {
+    		Robot.box.intake(-1);
+    	}
+    	
+    	else if (Robot.oi.getRB()) {
+    		Robot.box.intake(1);
+    	}
+    	
+    	else {
+    		Robot.box.intake(0);
+    	}
+    	}
     	//SmartDashboard.putNumber("lift time", t_currentt);
     }
 

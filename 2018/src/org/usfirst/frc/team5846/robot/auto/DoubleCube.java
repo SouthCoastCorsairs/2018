@@ -16,16 +16,21 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class DoubleCube extends CommandGroup {
 
     public DoubleCube() {
-    	addSequential(new StraightDrive(125), 4); 
+    	addSequential(new StraightDrive(125, false), 3); 
     	addSequential(new LiftAuto(.25)); //SECONDS
     	addSequential(new IntakeAuto(.5));
     	addSequential(new RaiseLift(.5));
-    	addSequential(new TurnAngle(-90), 2);
-    	addSequential(new LiftAuto(.5)); //SECONDS
-    	addSequential(new StraightDrive(25), 3); //INCHES
+//    	addSequential(new DriveAuto(1.6, true));
+    	addSequential(new StraightDrive(70, true));
+    	addSequential(new TurnAngle(-60), 4);
+    	addSequential(new LiftAuto(.4)); //SECONDS
+    	addSequential(new StraightDrive(75, false), 6); //INCHES
     	addSequential(new InvertIntake(1));
-    	addSequential(new DriveAuto(1.5, true)); //DRIVE BACKWARD IN SECONDS
-    	addSequential(new TurnAngle(90), 2);
+//    	addSequential(new DriveAuto(1.5, true)); //DRIVE BACKWARD IN SECONDS
+    //	addSequential(new StraightDrive())
+    	addSequential(new TurnAngle(52), 2);
+    	addSequential(new RaiseLift(.5));
+    	addSequential(new StraightDrive(42, false), 3);
     	addSequential(new LiftAuto(.25)); //SECONDS
     	addSequential(new IntakeAuto(.5));//SECONDS
         // Add Commands here:
