@@ -19,7 +19,7 @@ public class OI {
 	Joystick manipulator = new Joystick(1);
 	
 	public boolean solo;
-	public boolean tank = false;
+	public boolean tank;
 	
 	
 	//Get the Axis of the Joystick

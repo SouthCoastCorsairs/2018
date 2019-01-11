@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class Drive extends Command {
 	private double speed = 1;
-	private double direction;
+	private double direction = 1;
 	private double turn = .80;
 
     public Drive() {
@@ -64,7 +64,7 @@ public class Drive extends Command {
     	//Robot.drivetrain.Ddrive.arcadeDrive((Robot.oi.getYaxis()*speed), (Robot.oi.getYaxis()*turn));
     	
     	if (Robot.oi.tank) {
-    		Robot.drivetrain.tank(Robot.oi.getYaxis() * speed, Robot.oi.getRY() * speed);
+    		Robot.drivetrain.tank(-Robot.oi.getRY() * speed, Robot.oi.getYaxis() * speed);
     	}
     	
     	if (!Robot.oi.tank) {

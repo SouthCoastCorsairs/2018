@@ -12,7 +12,7 @@ public class RobotMap {
 	//Motor Controllers CAN id's
 	public static int frontLeft = 0;
 	public static int frontRight = 2;
-	public static int backLeft = 1;
+	public static int backLeft = 1;	
 	public static int backRight = 3;
 	
 	//Encoders in DIO Ports
@@ -21,7 +21,7 @@ public class RobotMap {
 	public static int DriveEncoderRightA = 0;
 	public static int DriveEncoderRightB = 1;
 	
-	//Other Motor Controllers
+	//Other Motor Controllers (PWM ports, not CAN)
 	public static int liftMotor1 = 0;
 	public static int liftMotor2 = 2;
 	public static int intakeLeft = 8;

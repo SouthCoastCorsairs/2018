@@ -76,8 +76,9 @@ public class Robot extends IterativeRobot {
 		//chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		
-//		control.addDefault("Normal", Controls.Duo);
-//		control.addObject("Solo Control", Controls.Solo);
+		control.addDefault("Normal", Controls.Duo);
+		control.addObject("Solo Control", Controls.Solo);
+		control.addObject("Tank", Controls.Tank);
 		
 		side.addObject("Middle", Sides.Middle);
 		side.addObject("Right", Sides.Right);
@@ -247,6 +248,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		
 		if (control.getSelected().equals(Controls.Duo)) {
 			Robot.oi.solo = false;
 			Robot.oi.tank = false;
@@ -261,6 +263,8 @@ public class Robot extends IterativeRobot {
 			Robot.oi.tank = true;
 			Robot.oi.solo = false;
 		}
+		
+		Robot.oi.solo = false;
 		//Printing stuff to SmartDashboard during teleop
 		SmartDashboard.putNumber("Angle", Robot.drivetrain.getAngle());
 		SmartDashboard.putNumber("Left Distance", Robot.drivetrain.getLeftDistance());
@@ -275,6 +279,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Turn PID", Robot.navx.turnController);
 		
 		SmartDashboard.putBoolean("Solo", Robot.oi.solo);
+		SmartDashboard.putBoolean("Tank", Robot.oi.tank);
 		
 		
 		Scheduler.getInstance().run();
